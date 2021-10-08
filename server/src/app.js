@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const dotenv = require('dotenv');
 const http = require('http');
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // Import routes
 // const classroomRouter = require('./routes/classroomRouter');
@@ -28,6 +28,7 @@ app.use(
 //Set mongodb url and port from .env
 dotenv.config();
 const url = process.env.MONGO_URI;
+console.log(url);
 
 //Set port
 const port = process.env.PORT || 5000;
@@ -35,19 +36,10 @@ const port = process.env.PORT || 5000;
 // Declare routes
 // app.use('/api/classrooms', classroomRouter);
 
-// Configure mongoose to avoid deprecation warnings
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-
-// Connect mongoose to server
+// // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {
     mongoose
         .connect(url, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false,
             authSource: process.env.MONGO_AUTH_SOURCE,
             user: process.env.MONGO_ADMIN_NAME,
             pass: process.env.MONGO_ADMIN_PASSWORD
@@ -58,18 +50,14 @@ if (process.env.IS_DEPLOYMENT == 'true') {
         .catch((err) => console.log(err));
 } else {
     mongoose
-        .connect(url, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false
-        })
+        .connect(url)
         .then(() => {
             console.log('Connected correctly to server');
         })
         .catch((err) => console.log(err));
 }
 
-console.log(url);
+// console.log(url);
 const server = http.createServer(app);
 
 //Start the server
