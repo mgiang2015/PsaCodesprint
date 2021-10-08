@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const operatorSchema = new mongoose.Schema(
+const truckSchema = new mongoose.Schema(
     {
         name: {
             type: String
@@ -20,5 +20,5 @@ const operatorSchema = new mongoose.Schema(
     }
 );
 
-const Operator = mongoose.model('Operator', operatorSchema);
-module.exports = Operator;
+const Truck = mongoose.model('Truck', truckSchema);
+module.exports = Truck;
