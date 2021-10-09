@@ -1,5 +1,5 @@
 import React from "react";
-import OperatorForm from "./OperatorForm";
+import OperatorForm from "./Operator/OperatorForm";
 import Logo from "./Components/Logo"
 import LoginPage from "./UserAuth/LoginPage";
 import SignupPage from "./UserAuth/SignupPage";
