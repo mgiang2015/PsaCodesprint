@@ -1,21 +1,36 @@
-const express = require('express');
-// const cors = require('cors');
-// const corsOptionsDelegate = require('../../node_modules/cors');
+import express from 'express';
+import {
+    getAllRequests,
+    postRequest,
+    getRequest,
+    updateRequest,
+    deleteRequest,
+    deleteAllRequests
+} from '../controllers/requestController';
+import asyncHandler from 'express-async-handler';
+import cors from 'cors';
+import { corsOptionsDelegate } from '../utils/cors';
 
+//Declare routes and configure middleware
 const requestRouter = express.Router();
 requestRouter.use(express.json());
 
-const requestController = require('../controllers/requestController');
-
 requestRouter
     .route('/')
-    .get(authenticate.verifyUser, requestController.getAllRequests)
-    .post(authenticate.verifyUser, requestController.postRequest);
+    .options(cors(corsOptionsDelegate), (req, res) => {
+        res.sendStatus(200);
+    })
+    .get(cors(), asyncHandler(getAllRequests))
+    .post(cors(corsOptionsDelegate), asyncHandler(postRequest))
+    .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllRequests));
 
 requestRouter
     .route('/:requestId')
-    .get(authenticate.verifyUser, requestController.getRequest)
-    .put(authenticate.verifyUser, requestController.updateRequest)
-    .delete(authenticate.verifyUser, requestController.deleteRequest);
+    .options(cors(corsOptionsDelegate), (req, res) => {
+        res.sendStatus(200);
+    })
+    .get(cors(), asyncHandler(getRequest))
+    .put(cors(corsOptionsDelegate), asyncHandler(updateRequest))
+    .delete(cors(corsOptionsDelegate), asyncHandler(deleteRequest));
 
-module.exports = requestRouter;
+export default requestRouter;
