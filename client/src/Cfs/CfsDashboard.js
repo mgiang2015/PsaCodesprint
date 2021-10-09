@@ -13,10 +13,10 @@ export default function OperatorDashboard() {
 	["Cell", "Cell", "Cell", "Cell"]
 	]
 
-	const title1 = "Cargo Schedule";
+	const title1 = "Schedule";
 	const headings1 = ["Delivery Truck", "Deliver By", "Origin Port", "Destination Port"];
 
-	const title2 = "Full Schedule";
+	const title2 = "Operators";
 	const headings2 = ["Operators", "Sending Volume", "Receiving Volume", "Total"];
 
 	return (

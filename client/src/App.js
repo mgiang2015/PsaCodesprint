@@ -5,6 +5,7 @@ import OperatorForm from "./Operator/OperatorForm";
 import LoginPage from "./UserAuth/LoginPage";
 import SignupPage from "./UserAuth/SignupPage";
 import OperatorDashboard from "./Operator/OperatorDashboard";
+import CfsDashboard from "./Cfs/CfsDashboard";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
             </Route>
             <Route exact path="/operator">
                 <OperatorDashboard />
+            </Route>
+            <Route exact path="/cfs">
+                <CfsDashboard />
             </Route>
         </Switch>
     </div>
