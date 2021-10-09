@@ -1,7 +1,6 @@
-import { Box, Typography, Toolbar, AppBar, Button, IconButton } from '@mui/material';
+import { Box, Toolbar, AppBar, Button, IconButton } from '@mui/material';
 import { Container } from '@mui/material';
 import logo from '../assets/logoWithText.svg';
-import styles from './Logo.css'
 
 function Logo() {
 	return (
