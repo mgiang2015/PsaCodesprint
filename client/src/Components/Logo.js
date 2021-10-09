@@ -1,20 +1,30 @@
-import { Box, Typography } from '@mui/material';
-import { flexbox, sizing } from '@mui/system';
+import { Box, Typography, Toolbar, AppBar, Button, IconButton } from '@mui/material';
+import { Container } from '@mui/material';
+import logo from '../assets/logoWithText.svg';
+import styles from './Logo.css'
 
-export default function Logo({ height }) {
+function Logo() {
 	return (
-		<Box sx={{ display: 'flex', alignItems: 'center' }}>
-			<Box sx={{ display: 'flex',
-									flexDirection: 'column', 
-									flexWrap: 'wrap',
-									height: height,
-									width: height }}>
-				<Box sx={{ width: 1/2, height: 1/3, backgroundColor: '#A8DADC' }} />
-				<Box sx={{ width: 1/2, height: 2/3, backgroundColor: '#1D3557' }}/>
-				<Box sx={{ width: 1/2, height: 2/3, backgroundColor: '#1D3557' }} />
-				<Box sx={{ width: 1/2, height: 1/3, backgroundColor: '#f3722c' }}/>
-			</Box>
-			<Typography variant='h4'>Next Truck</Typography>
-		</Box>
+        <AppBar position="static" style={{ background: '#FFF' }}>
+            <Container maxWidth="xxl">
+            <Toolbar>
+                <IconButton edge="start" sx={{ ml: 20, my: 1, "&:hover": { backgroundColor: "transparent" } }}  disableRipple>
+                    <Box component="img" 
+                            sx={{
+                                height: '4rem'
+                            }}
+                            src={logo}
+                        />
+                </IconButton>
+                <Box sx={{flex: 1}} />
+                <Box sx={{mr: 20}}>
+                    <Button sx={{width: 100, fontWeight: 500, mr: 3, textTransform: 'none'}} variant="outlined" disableElevation>Login</Button>
+                    <Button sx={{width: 100, textTransform: 'none' }} variant="contained" disableElevation>Sign Up</Button>
+                </Box>
+            </Toolbar>
+            </Container>
+        </AppBar>
 	)
 }
+
+export default Logo;

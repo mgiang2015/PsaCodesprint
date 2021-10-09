@@ -1,13 +1,14 @@
 import React from "react";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./Pages/LandingPage";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import OperatorForm from "./Operator/OperatorForm";
 import LoginPage from "./UserAuth/LoginPage";
 import SignupPage from "./UserAuth/SignupPage";
+import Logo from "./Components/Logo";
 
 function App() {
   return (
     <div>
+        <Logo />
         <Switch>
             <Route exact path="/">
                 <LandingPage />
