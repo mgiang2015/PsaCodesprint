@@ -22,6 +22,12 @@ const cfsAdminSchema = new Schema(
                 ref: 'Warehouse'
             }
         ],
+        requests: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Request'
+            }
+        ],
         schedules: [
             {
                 type: Schema.Types.ObjectId,
