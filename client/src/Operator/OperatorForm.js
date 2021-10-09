@@ -12,15 +12,15 @@ export default function OperatorForm() {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} style={{ width: 500 }}>
-			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 				<InputLabel>Date</InputLabel>
 				<TextField label="Date" variant="outlined" {...register("date")} />
 			</Box>
-			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 				<InputLabel>Cargo Size</InputLabel>
 				<TextField label="In TEUs" variant="outlined" {...register("size")} />
 			</Box>
-			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 				<InputLabel>Origin Warehouse</InputLabel>
 				<Select label="Select a Warehouse" sx={{ minWidth: 1/3 }} variant="outlined" {...register("origin")}>
 					<MenuItem value="a">A</MenuItem>
@@ -33,7 +33,7 @@ export default function OperatorForm() {
 					<MenuItem value="h">H</MenuItem>
 				</Select>
 			</Box>
-			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 				<InputLabel>Destination Warehouse</InputLabel>
 				<Select label="Select a Warehouse" sx={{ minWidth: 1/3 }} variant="outlined" {...register("destination")}>
 					<MenuItem value="a">A</MenuItem>
@@ -46,7 +46,7 @@ export default function OperatorForm() {
 					<MenuItem value="h">H</MenuItem>
 				</Select>
 			</Box>
-			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 				<InputLabel>Delivery Time</InputLabel>
 				<Select label="Select a time" variant="outlined" sx={{ minWidth: 1/3 }} {...register("deliveryTime")}>
 					<MenuItem value="1000">1000</MenuItem>
@@ -59,7 +59,7 @@ export default function OperatorForm() {
 					<MenuItem value="1700">1700</MenuItem>
 				</Select>
 			</Box>
-			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+			<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 				<InputLabel>Closing Time</InputLabel>
 				<Select labelId="Select a time" sx={{ minWidth: 1/3 }} variant="outlined" {...register("closingTime")}>
 					<MenuItem value="1000">1000</MenuItem>
