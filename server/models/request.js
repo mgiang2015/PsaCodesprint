@@ -29,6 +29,10 @@ const requestSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             ref: 'Operator',
             required: true
+        },
+        cfsAdmin: {
+            type: Schema.Types.ObjectId,
+            ref: 'CFSAdmin'
         }
     },
     {
