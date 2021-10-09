@@ -2,8 +2,8 @@ import { Table, TableBody, TableContainer, TableRow, TableCell, TableHead, Paper
 
 export default function InfoTable({ title, headings , datasets }) {
 	return (
-    <TableContainer component={Paper}>
-    	<Typography variant="h3">{title}</Typography>
+    <TableContainer component={Paper} sx={{ marginTop: "2rem", padding: "1rem" }}>
+    	<Typography variant="h4">{title}</Typography>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
