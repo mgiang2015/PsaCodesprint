@@ -16,8 +16,8 @@ export default function LoginPage() {
 									flexDirection: 'column',
 									alignItems: 'center',
 									width: 1/4 }}>
-			<TextField label="Username" variant="outlined" />
-			<TextField label="Password" variant="outlined" type="password" />
+			<TextField label="Username" variant="outlined" {...register("Username")} />
+			<TextField label="Password" variant="outlined" type="password" {...register("Password")} />
 			<Button>Login</Button>
 
 		</Paper>

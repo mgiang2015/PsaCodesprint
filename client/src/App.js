@@ -2,6 +2,7 @@ import React from "react";
 import OperatorForm from "./OperatorForm";
 import Logo from "./Components/Logo"
 import LoginPage from "./UserAuth/LoginPage";
+import SignupPage from "./UserAuth/SignupPage";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Logo height={'5em'} />
       <OperatorForm />
       <LoginPage />
+      <SignupPage />
     </div>
   );
 }
