@@ -2,22 +2,21 @@ import express from 'express';
 
 import isEmpty from 'is-empty';
 import { CFSAdmin } from '../models/cfsAdmin';
+import { Operator } from '../models/operator';
 
 // Import middlewares
 import passport from 'passport';
-// import { getToken } from '../utils/config/passport';
-import Validator from 'validator';
 
 // Load input validation
 import { validateRegisterInput } from '../utils/validation/register';
 import { validateLoginInput } from '../utils/validation/login';
 
 /**
- * @route POST cfsAdmins/register
- * @desc Register cfsAdmin
+ * @route POST operators/register
+ * @desc Register operator
  */
-export const registerCFSAdmin = (req, res, next) => {
-    // Validate cfsAdmin input
+export const registerOperator = (req, res, next) => {
+    // Validate operator input
     const { errors, success } = validateRegisterInput(req.body);
 
     // Check validation
@@ -26,20 +25,20 @@ export const registerCFSAdmin = (req, res, next) => {
     }
 
     // Check whether there are duplicate emails
-    CFSAdmin.findOne({ username: req.body.username })
-        .then((cfsAdmin) => {
-            if (cfsAdmin) {
+    Operator.findOne({ username: req.body.username })
+        .then((operator) => {
+            if (operator) {
                 return res.status(400).json({
                     success: false,
                     errors: { username: 'username already exists' }
                 });
             } else {
-                CFSAdmin.register(
-                    new CFSAdmin({
+                Operator.register(
+                    new Operator({
                         username: req.body.username
                     }),
                     req.body.password,
-                    (err, cfsAdmin) => {
+                    (err, operator) => {
                         if (err) {
                             res.statusCode = 400;
                             res.setHeader('Content-Type', 'application/json');
@@ -48,10 +47,10 @@ export const registerCFSAdmin = (req, res, next) => {
                                 errors: err
                             });
                         } else {
-                            // Adds email and isAdmin status to the cfsAdmin object
-                            // cfsAdmin.isAdmin = req.body.isAdmin;
+                            // Adds email and isAdmin status to the operator object
+                            // operator.isAdmin = req.body.isAdmin;
 
-                            cfsAdmin.save((err) => {
+                            operator.save((err) => {
                                 if (err) {
                                     res.statusCode = 500;
                                     res.setHeader(
@@ -64,13 +63,24 @@ export const registerCFSAdmin = (req, res, next) => {
                                     });
                                 }
 
-                                passport.authenticate('local-admin')(
+                                if (req.body.cfsAdmin) {
+                                    await CFSAdmin.findByIdAndUpdate(
+                                        req.body.cfsAdmin,
+                                        {
+                                            $addToSet: {
+                                                operators: operator._id
+                                            }
+                                        }
+                                    );
+                                }
+
+                                passport.authenticate('local-operator')(
                                     req,
                                     res,
                                     () => {
-                                        const newCFSAdmin = {
-                                            username: cfsAdmin.username,
-                                            _id: cfsAdmin._id
+                                        const newOperator = {
+                                            username: operator.username,
+                                            _id: operator._id
                                         };
 
                                         res.statusCode = 200;
@@ -81,7 +91,7 @@ export const registerCFSAdmin = (req, res, next) => {
                                         res.json({
                                             success: true,
                                             status: 'Registration Successful!',
-                                            data: newCFSAdmin,
+                                            data: newOperator,
                                             errors: {}
                                         });
                                     }
@@ -95,7 +105,7 @@ export const registerCFSAdmin = (req, res, next) => {
         .catch((err) => console.log(err));
 };
 
-// Authenticate cfsAdmin with custom error message
+// Authenticate operator with custom error message
 export const authenticateLogin = (req, res, next) => {
     // Form validation
     const { errors, success } = validateLoginInput(req.body);
@@ -108,10 +118,10 @@ export const authenticateLogin = (req, res, next) => {
         });
     } else {
         passport.authenticate(
-            ['local-admin'],
+            ['local-operator'],
             { session: false },
-            (err, cfsAdmin) => {
-                if (err || !cfsAdmin) {
+            (err, operator) => {
+                if (err || !operator) {
                     return res.status(401).json({
                         success: false,
                         errors: {
@@ -119,7 +129,7 @@ export const authenticateLogin = (req, res, next) => {
                         }
                     });
                 } else {
-                    req.cfsAdmin = cfsAdmin;
+                    req.operator = operator;
                     return next();
                 }
             }
@@ -128,35 +138,35 @@ export const authenticateLogin = (req, res, next) => {
 };
 
 /**
- * @route POST cfsAdmins/login
- * @desc Login cfsAdmin
+ * @route POST operators/login
+ * @desc Login operator
  */
-export const loginCFSAdmin = (req, res, next) => {
-    CFSAdmin.findById(req.cfsAdmin._id).then((cfsAdmin) => {
+export const loginOperator = (req, res, next) => {
+    Operator.findById(req.operator._id).then((operator) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json({
             success: true,
             message: 'You are successfully logged in!',
-            username: cfsAdmin.username,
-            userId: cfsAdmin._id,
-            userType: 'cfsAdmin',
+            username: operator.username,
+            userId: operator._id,
+            userType: 'operator',
             errors: {}
         });
     });
 };
 
 /**
- * @route GET /cfsAdmins
- * @desc Get a list of all cfsAdmins. Admin only.
+ * @route GET /operators
+ * @desc Get a list of all operators. Admin only.
  */
-export async function getAllCFSAdmins(req, res, next) {
+export async function getAllOperators(req, res, next) {
     try {
-        const cfsAdmins = await CFSAdmin.find({});
+        const operators = await Operator.find({});
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(cfsAdmins);
+        res.json(operators);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -164,19 +174,19 @@ export async function getAllCFSAdmins(req, res, next) {
 }
 
 /**
- * @route GET /cfsAdmins/profiles
- * @desc Get the current cfsAdmin
+ * @route GET /operators/profiles
+ * @desc Get the current operator
  */
-export async function getCFSAdmin(req, res, next) {
+export async function getOperator(req, res, next) {
     try {
-        const cfsAdmin = await CFSAdmin.findOne({
+        const operator = await Operator.findOne({
             username: req.params.username
-        }).populate('warehouses operators trucks');
-        // .populate('warehouses operators trucks schedules');
-        if (cfsAdmin != null) {
+        }).populate('warehouses');
+        // .populate('warehouses schedules');
+        if (operator != null) {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json(cfsAdmin);
+            res.json(operator);
         } else {
             res.statusCode = 404;
             res.send(`username ${req.params.username} not found!`);
@@ -188,15 +198,15 @@ export async function getCFSAdmin(req, res, next) {
 }
 
 /**
- * @route PUT /cfsAdmins/profiles.
- * @desc edit an existing entry for the current cfsAdmin's profile.
+ * @route PUT /operators/profiles.
+ * @desc edit an existing entry for the current operator's profile.
  */
-export const putCFSAdmin = async (req, res, next) => {
+export const putOperator = async (req, res, next) => {
     if (req.body.username) {
-        const cfsAdmin = await CFSAdmin.find({
+        const operator = await Operator.find({
             username: req.body.username
         });
-        if (!isEmpty(cfsAdmin)) {
+        if (!isEmpty(operator)) {
             console.log('username is taken');
             res.status(400).json({
                 error: 'Bad Request',
@@ -206,25 +216,31 @@ export const putCFSAdmin = async (req, res, next) => {
         }
     }
 
-    const cfsAdmin = await CFSAdmin.findOne({
+    const operator = await Operator.findOne({
         username: req.params.username
     });
 
-    CFSAdmin.findByIdAndUpdate(
-        cfsAdmin._id,
+    if (req.body.cfsAdmin) {
+        await CFSAdmin.findByIdAndUpdate(req.body.cfsAdmin, {
+            $addToSet: { operators: operator._id }
+        });
+    }
+
+    Operator.findByIdAndUpdate(
+        operator._id,
         {
             $set: req.body
         },
         { new: true }
     )
-        .then((cfsAdmin) => {
-            console.log(cfsAdmin);
+        .then((operator) => {
+            console.log(operator);
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
             if (res.locals) {
-                res.locals.cfsAdmin = cfsAdmin;
+                res.locals.operator = operator;
                 res.send(res.locals);
-            } else res.send(cfsAdmin);
+            } else res.send(operator);
         })
         .catch((err) => {
             res.statusCode = 500;
@@ -232,46 +248,46 @@ export const putCFSAdmin = async (req, res, next) => {
         });
 };
 
-// export const getCFSAdminOperators = async (req, res, next) => {
-//     const cfsAdmin = await CFSAdmin.find({
+// export const getOperatorOperators = async (req, res, next) => {
+//     const operator = await Operator.find({
 //         username: req.params.username
 //     });
-//     if (isEmpty(cfsAdmin)) {
+//     if (isEmpty(operator)) {
 //         return res
 //             .status(404)
-//             .json({ errors: { message: 'CFSAdmin does not exist!' } });
+//             .json({ errors: { message: 'Operator does not exist!' } });
 //     }
 
 //     const operators = await Operator.find({
-//         _id: { $in: cfsAdmin[0].operators }
+//         _id: { $in: operator[0].operators }
 //     });
 
 //     if (isEmpty(operators)) {
 //         return res.status(404).json({
-//             errors: { message: 'CFSAdmin does not have any operators!' }
+//             errors: { message: 'Operator does not have any operators!' }
 //         });
 //     }
 
 //     return res.status(200).json({ operators });
 // };
 
-// export const getCFSAdminWarehouses = async (req, res, next) => {
-//     const cfsAdmin = await CFSAdmin.find({
+// export const getOperatorWarehouses = async (req, res, next) => {
+//     const operator = await Operator.find({
 //         username: req.params.username
 //     });
-//     if (isEmpty(cfsAdmin)) {
+//     if (isEmpty(operator)) {
 //         return res
 //             .status(404)
-//             .json({ errors: { message: 'CFSAdmin does not exist!' } });
+//             .json({ errors: { message: 'Operator does not exist!' } });
 //     }
 
 //     const warehouses = await Warehouse.find({
-//         _id: { $in: cfsAdmin[0].warehouses }
+//         _id: { $in: operator[0].warehouses }
 //     });
 
 //     if (isEmpty(warehouses)) {
 //         return res.status(404).json({
-//             errors: { message: 'CFSAdmin does not have any warehouses!' }
+//             errors: { message: 'Operator does not have any warehouses!' }
 //         });
 //     }
 
