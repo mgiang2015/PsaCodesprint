@@ -35,7 +35,7 @@ const cfsAdminSchema = new Schema(
         },
         loginType: {
             type: String,
-            enum: ['local', 'google'],
+            enum: ['local-admin', 'google'],
             default: 'local'
         },
         stationName: {

@@ -18,6 +18,10 @@ const truckSchema = new Schema(
         cargoSpace: {
             type: Number,
             default: 0
+        },
+        cfsAdmin: {
+            type: Schema.Types.ObjectId,
+            ref: 'CFSAdmin'
         }
     },
     {

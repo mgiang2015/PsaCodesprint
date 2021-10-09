@@ -15,6 +15,10 @@ const warehouseSchema = new Schema(
         unitNo: {
             type: Number,
             required: true
+        },
+        cfsAdmin: {
+            type: Schema.Types.ObjectId,
+            ref: 'CFSAdmin'
         }
     },
     {
