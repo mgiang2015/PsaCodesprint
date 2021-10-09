@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const truckSchema = new mongoose.Schema(
+const truckSchema = new Schema(
     {
         firstName: {
             type: String,
@@ -22,4 +22,3 @@ const truckSchema = new mongoose.Schema(
 );
 
 export const Truck = mongoose.model('Truck', truckSchema);
-// module.exports = Truck;

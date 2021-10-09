@@ -5,7 +5,10 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import path from 'path';
 import dotenv from 'dotenv';
+
+// Import routers
 import truckRouter from './routes/truckRouter';
+import warehouseRouter from './routes/warehouseRouter';
 
 const __dirname = path.resolve();
 dotenv.config({ path: path.resolve(__dirname, './.env') });
@@ -37,6 +40,7 @@ const port = process.env.PORT || 5000;
 
 // Declare routes
 app.use('/api/trucks', truckRouter);
+app.use('/api/warehouses', warehouseRouter);
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {

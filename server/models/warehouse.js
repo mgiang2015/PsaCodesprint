@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const warehouseSchema = new mongoose.Schema(
@@ -22,5 +22,4 @@ const warehouseSchema = new mongoose.Schema(
     }
 );
 
-const Warehouse = mongoose.model('Warehouse', warehouseSchema);
-module.exports = Warehouse;
+export const Warehouse = mongoose.model('Warehouse', warehouseSchema);
