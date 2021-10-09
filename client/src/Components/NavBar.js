@@ -2,7 +2,7 @@ import { Box, Toolbar, AppBar, Button, IconButton } from '@mui/material';
 import { Container } from '@mui/material';
 import logo from '../assets/logoWithText.svg';
 
-function Logo() {
+function NavBar() {
 	return (
         <AppBar position="static" style={{ background: '#FFF', height: "10vh" }}>
             <Container maxWidth="xxl">
@@ -26,4 +26,4 @@ function Logo() {
 	)
 }
 
-export default Logo;
+export default NavBar;
