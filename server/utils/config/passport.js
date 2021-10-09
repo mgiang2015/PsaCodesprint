@@ -84,7 +84,7 @@ export const getVerifiedUser = (req, res, next) => {
 
 // Verify whether use is an admin
 export const verifyAdmin = (req, res, next) => {
-    if (req.user.admin) {
+    if (req.user.isAdmin) {
         next();
     } else {
         const err = new Error('You are not authorised!');
