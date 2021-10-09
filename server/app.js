@@ -1,14 +1,16 @@
 // Import middlewares
-const express = require('express');
-const logger = require('morgan');
-const mongoose = require('mongoose');
-const path = require('path');
-const dotenv = require('dotenv');
-const http = require('http');
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+import express from 'express';
+import http from 'http';
+import logger from 'morgan';
+import mongoose from 'mongoose';
+import path from 'path';
+import dotenv from 'dotenv';
+import truckRouter from './routes/truckRouter';
+
+const __dirname = path.resolve();
+dotenv.config({ path: path.resolve(__dirname, './.env') });
 
 // Import routes
-// const classroomRouter = require('./routes/classroomRouter');
 
 const app = express();
 
@@ -34,7 +36,7 @@ console.log(url);
 const port = process.env.PORT || 5000;
 
 // Declare routes
-// app.use('/api/classrooms', classroomRouter);
+app.use('/api/trucks', truckRouter);
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {
@@ -66,4 +68,5 @@ server.listen(port, () => {
 });
 
 //Export app for testing
-module.exports = server;
+// module.exports = server;
+export default app;
