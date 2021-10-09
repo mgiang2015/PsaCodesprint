@@ -13,8 +13,6 @@ export function validateRegisterInput(data) {
     let errors = {};
 
     // Convert empty fields to empty or placeholder strings to be able to use validator functions
-    data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
-    data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.username = !isEmpty(data.username) ? data.username : '';
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
@@ -26,11 +24,6 @@ export function validateRegisterInput(data) {
     } else if (!Validator.isAlphanumeric(data.username)) {
         errors.username =
             'Username must contain only alphanumeric characters, no spacing';
-    }
-
-    // Check that firstName is not empty
-    if (Validator.isEmpty(data.firstName)) {
-        errors.firstName = 'First name is required';
     }
 
     // Check that email is not empty and is a valid email
