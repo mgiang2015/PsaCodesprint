@@ -1,9 +1,13 @@
 import React from "react";
-import LandingPage from "./Pages/LandingPage";
+import LandingPage from "./pages/LandingPage";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import LoginPage from "./UserAuth/LoginPage";
 import SignupPage from "./UserAuth/SignupPage";
 import Logo from "./Components/Logo";
+import OperatorDashboard from "./Operator/OperatorDashboard";
+import CfsDashboard from "./Cfs/CfsDashboard";
+import OperatorForm from "./Operator/OperatorForm"
+import OperatorTruckForm from "./Operator/OperatorTruckForm"
 
 function App() {
   return (
@@ -18,6 +22,18 @@ function App() {
             </Route>
             <Route exact path="/signup">
                 <SignupPage />
+            </Route>
+            <Route exact path="/cfs">
+                <CfsDashboard />
+            </Route>
+            <Route exact path="/operator">
+                <OperatorDashboard />
+            </Route>
+            <Route exact path="/operator/addDelivery">
+                <OperatorForm />
+            </Route>
+            <Route exact path="/operator/addTruck">
+                <OperatorTruckForm />
             </Route>
         </Switch>
     </div>
