@@ -1,7 +1,7 @@
 import express from 'express';
 import {
     getAllCFSAdmins,
-    // putCFSAdmin,
+    putCFSAdmin,
     getCFSAdmin,
     registerCFSAdmin,
     authenticateLogin,
@@ -27,8 +27,8 @@ cfsAdminRouter
     .options(cors(corsOptionsDelegate), (req, res) => {
         res.sendStatus(204);
     })
-    .get(cors(), getCFSAdmin);
-// .put(cors(corsOptionsDelegate), putCFSAdmin);
+    .get(cors(), getCFSAdmin)
+    .put(cors(corsOptionsDelegate), putCFSAdmin);
 
 cfsAdminRouter
     .route('/register')

@@ -139,6 +139,7 @@ export const loginCFSAdmin = (req, res, next) => {
             success: true,
             message: 'You are successfully logged in!',
             username: cfsAdmin.username,
+            userId: cfsAdmin._id,
             userType: 'cfsAdmin',
             errors: {}
         });
@@ -170,7 +171,8 @@ export async function getCFSAdmin(req, res, next) {
     try {
         const cfsAdmin = await CFSAdmin.findOne({
             username: req.params.username
-        }).populate('warehouses operators trucks schedules');
+        }).populate('warehouses trucks');
+        // .populate('warehouses operators trucks schedules');
         if (cfsAdmin != null) {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
@@ -180,6 +182,7 @@ export async function getCFSAdmin(req, res, next) {
             res.send(`username ${req.params.username} not found!`);
         }
     } catch (err) {
+        console.log(err);
         res.status(500).send(err);
     }
 }
@@ -188,41 +191,46 @@ export async function getCFSAdmin(req, res, next) {
  * @route PUT /cfsAdmins/profiles.
  * @desc edit an existing entry for the current cfsAdmin's profile.
  */
-// export const putCFSAdmin = async (req, res, next) => {
-//     if (req.body.username) {
-//         const cfsAdmin = await CFSAdmin.find({
-//             username: req.body.username
-//         });
-//         if (!isEmpty(cfsAdmin)) {
-//             console.log('username is taken');
-//             res.status(400).json({
-//                 error: 'Bad Request',
-//                 message: 'username is taken!'
-//             });
-//             return;
-//         }
-//     }
+export const putCFSAdmin = async (req, res, next) => {
+    if (req.body.username) {
+        const cfsAdmin = await CFSAdmin.find({
+            username: req.body.username
+        });
+        if (!isEmpty(cfsAdmin)) {
+            console.log('username is taken');
+            res.status(400).json({
+                error: 'Bad Request',
+                message: 'username is taken!'
+            });
+            return;
+        }
+    }
 
-//     CFSAdmin.findByIdAndUpdate(
-//         ._id,
-//         {
-//             $set: req.body
-//         },
-//         { new: true }
-//     )
-//         .then((cfsAdmin) => {
-//             res.statusCode = 200;
-//             res.setHeader('Content-Type', 'application/json');
-//             if (res.locals) {
-//                 res.locals.cfsAdmin = cfsAdmin;
-//                 res.send(res.locals);
-//             } else res.send(cfsAdmin);
-//         })
-//         .catch((err) => {
-//             res.statusCode = 500;
-//             res.send(err);
-//         });
-// };
+    const cfsAdmin = await CFSAdmin.findOne({
+        username: req.params.username
+    });
+
+    CFSAdmin.findByIdAndUpdate(
+        cfsAdmin._id,
+        {
+            $set: req.body
+        },
+        { new: true }
+    )
+        .then((cfsAdmin) => {
+            console.log(cfsAdmin);
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            if (res.locals) {
+                res.locals.cfsAdmin = cfsAdmin;
+                res.send(res.locals);
+            } else res.send(cfsAdmin);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+};
 
 // export const getCFSAdminOperators = async (req, res, next) => {
 //     const cfsAdmin = await CFSAdmin.find({
