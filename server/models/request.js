@@ -29,10 +29,6 @@ const requestSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             ref: 'Operator',
             required: true
-        },
-        assignedTruck: {
-            type: Schema.Types.ObjectId,
-            ref: 'Truck'
         }
     },
     {
