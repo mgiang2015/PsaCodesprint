@@ -10,7 +10,6 @@ function App() {
                 <LandingPage />
             </Route>
         </Switch>
-        
     </div>
   );
 }
