@@ -14,7 +14,6 @@ export function validateRegisterInput(data) {
 
     // Convert empty fields to empty or placeholder strings to be able to use validator functions
     data.username = !isEmpty(data.username) ? data.username : '';
-    data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password2 = !isEmpty(data.password2) ? data.password2 : '';
 
@@ -24,13 +23,6 @@ export function validateRegisterInput(data) {
     } else if (!Validator.isAlphanumeric(data.username)) {
         errors.username =
             'Username must contain only alphanumeric characters, no spacing';
-    }
-
-    // Check that email is not empty and is a valid email
-    if (Validator.isEmpty(data.email)) {
-        errors.email = 'Email field is required';
-    } else if (!Validator.isEmail(data.email)) {
-        errors.email = 'Email is invalid';
     }
 
     // Check that password length is at least 8 characters

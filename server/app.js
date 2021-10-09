@@ -5,11 +5,15 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import path from 'path';
 import dotenv from 'dotenv';
+import { localAdminStrategy } from './utils/config/passport';
 
 // Import routers
 import truckRouter from './routes/truckRouter';
 import warehouseRouter from './routes/warehouseRouter';
+import cfsAdminRouter from './routes/cfsAdminRouter';
+// import requestRouter from './routes/requestRouter';
 
+import passport from 'passport';
 const __dirname = path.resolve();
 dotenv.config({ path: path.resolve(__dirname, './.env') });
 
@@ -35,12 +39,20 @@ dotenv.config();
 const url = process.env.MONGO_URI;
 console.log(url);
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+localAdminStrategy;
+
 //Set port
 const port = process.env.PORT || 5000;
 
 // Declare routes
 app.use('/api/trucks', truckRouter);
 app.use('/api/warehouses', warehouseRouter);
+app.use('/api/cfsAdmins', cfsAdminRouter);
+// app.use('/api/request', requestRouter);
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {

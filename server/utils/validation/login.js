@@ -15,11 +15,12 @@ export function validateLoginInput(data) {
     data.username = !isEmpty(data.username) ? data.username : '';
     data.password = !isEmpty(data.password) ? data.password : '';
 
-    // Check that username is not empty and is a valid username
+    // Check that username is not empty or does not contain alphanumeric characters
     if (Validator.isEmpty(data.username)) {
-        errors.username = 'Username field is required';
-    } else if (!Validator.isUsername(data.username)) {
-        errors.username = 'Username is invalid';
+        errors.username = 'Username is required';
+    } else if (!Validator.isAlphanumeric(data.username)) {
+        errors.username =
+            'Username must contain only alphanumeric characters, no spacing';
     }
 
     // Check that password is not empty
