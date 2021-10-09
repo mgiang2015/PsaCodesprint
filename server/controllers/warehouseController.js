@@ -1,6 +1,7 @@
 import express from 'express';
 import { CFSAdmin } from '../models/cfsAdmin';
 import { Warehouse } from '../models/warehouse';
+import { Operator } from '../models/operator';
 
 export async function getAllWarehouses(req, res) {
     try {
@@ -44,7 +45,7 @@ export async function postWarehouse(req, res) {
             $addToSet: { warehouses: newWarehouse._id }
         });
 
-        await Operator.findByIdAndUpdate(req.body.cfsAdmin, {
+        await Operator.findByIdAndUpdate(req.body.operator, {
             $addToSet: { warehouses: newWarehouse._id }
         });
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import { Truck } from '../models/truck';
+import { CFSAdmin } from '../models/cfsAdmin';
 
 export async function getAllTrucks(req, res) {
     try {
@@ -39,6 +40,10 @@ export async function postTruck(req, res) {
         // Save Truck to DB
         const truck = await newTruck.save();
 
+        await CFSAdmin.findByIdAndUpdate(req.body.cfsAdmin, {
+            $addToSet: { trucks: newTruck._id }
+        });
+
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(truck);
@@ -70,6 +75,12 @@ export async function updateTruck(req, res) {
 export async function deleteTruck(req, res) {
     const truck = await Truck.findById(req.params.truckId);
     if (truck != null) {
+        await CFSAdmin.findByIdAndUpdate(warehouse.cfsAdmin, {
+            $pull: {
+                trucks: truck._id
+            }
+        });
+
         const removedTruck = await Truck.findByIdAndRemove(req.params.truckId);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -81,15 +92,15 @@ export async function deleteTruck(req, res) {
     }
 }
 
-export async function deleteAllTrucks(req, res) {
-    try {
-        const resp = await Truck.deleteMany({});
+// export async function deleteAllTrucks(req, res) {
+//     try {
+//         const resp = await Truck.deleteMany({});
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(resp);
-    } catch (err) {
-        res.statusCode = 500;
-        res.send(err);
-    }
-}
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'application/json');
+//         res.json(resp);
+//     } catch (err) {
+//         res.statusCode = 500;
+//         res.send(err);
+//     }
+// }

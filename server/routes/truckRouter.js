@@ -4,8 +4,8 @@ import {
     postTruck,
     getTruck,
     updateTruck,
-    deleteTruck,
-    deleteAllTrucks
+    deleteTruck
+    // deleteAllTrucks
 } from '../controllers/truckController';
 import asyncHandler from 'express-async-handler';
 import cors from 'cors';
@@ -21,8 +21,8 @@ truckRouter
         res.sendStatus(200);
     })
     .get(cors(), asyncHandler(getAllTrucks))
-    .post(cors(corsOptionsDelegate), asyncHandler(postTruck))
-    .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllTrucks));
+    .post(cors(corsOptionsDelegate), asyncHandler(postTruck));
+// .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllTrucks));
 
 truckRouter
     .route('/:truckId')
