@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/mgiang2015/PsaCodesprint/issues"
   },
-  "homepage": "https://github.com/mgiang2015/PsaCodesprint#readme"
+  "homepage": "https://github.com/mgiang2015/PsaCodesprint#readme",
+  "dependencies": {}
 }
