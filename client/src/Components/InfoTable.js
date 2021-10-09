@@ -1,4 +1,4 @@
-import { Table, TableBody, TableContainer, TableRow, TableCell, TableHead, Paper } from '@mui/material';
+import { Table, TableBody, TableContainer, TableRow, TableCell, TableHead, Paper, Typography } from '@mui/material';
 
 export default function InfoTable({ title, headings , datasets }) {
 	return (
@@ -15,7 +15,7 @@ export default function InfoTable({ title, headings , datasets }) {
         		<TableRow key={dataset[0]} >
         			{dataset.map((data) => (
         				<TableCell align="left" key={data}>
-        					{dataset}
+        					{data}
         				</TableCell>
         				))}
         		</TableRow>

@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import OperatorForm from "./Operator/OperatorForm";
 import LoginPage from "./UserAuth/LoginPage";
 import SignupPage from "./UserAuth/SignupPage";
+import OperatorDashboard from "./Operator/OperatorDashboard";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
             </Route>
             <Route exact path="/signup">
                 <SignupPage />
+            </Route>
+            <Route exact path="/operator">
+                <OperatorDashboard />
             </Route>
         </Switch>
     </div>
