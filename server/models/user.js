@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+import passportLocalMongoose from 'passport-local-mongoose';
 
-const operatorSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         warehouses: [
             {
@@ -42,5 +43,6 @@ const operatorSchema = new mongoose.Schema(
     }
 );
 
-const Operator = mongoose.model('Operator', operatorSchema);
-module.exports = Operator;
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+
+export const User = mongoose.model('User', userSchema);
