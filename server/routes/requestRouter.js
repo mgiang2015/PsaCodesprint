@@ -4,8 +4,8 @@ import {
     postRequest,
     getRequest,
     updateRequest,
-    deleteRequest,
-    deleteAllRequests
+    deleteRequest
+    // deleteAllRequests
 } from '../controllers/requestController';
 import asyncHandler from 'express-async-handler';
 import cors from 'cors';
@@ -21,8 +21,8 @@ requestRouter
         res.sendStatus(200);
     })
     .get(cors(), asyncHandler(getAllRequests))
-    .post(cors(corsOptionsDelegate), asyncHandler(postRequest))
-    .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllRequests));
+    .post(cors(corsOptionsDelegate), asyncHandler(postRequest));
+// .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllRequests));
 
 requestRouter
     .route('/:requestId')

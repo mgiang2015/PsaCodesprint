@@ -7,6 +7,7 @@ import {
     authenticateLogin,
     loginOperator
 } from '../controllers/operatorController';
+import asyncHandler from 'express-async-handler';
 
 import cors from 'cors';
 import { corsOptionsDelegate } from '../utils/cors';
@@ -20,7 +21,7 @@ operatorRouter
     .options(cors(corsOptionsDelegate), (req, res) => {
         res.sendStatus(204);
     })
-    .get(cors(), getAllOperators);
+    .get(cors(), asyncHandler(getAllOperators));
 
 operatorRouter
     .route('/profiles/:username')
@@ -28,20 +29,24 @@ operatorRouter
         res.sendStatus(204);
     })
     .get(cors(), getOperator)
-    .put(cors(corsOptionsDelegate), putOperator);
+    .put(cors(corsOptionsDelegate), asyncHandler(putOperator));
 
 operatorRouter
     .route('/register')
     .options(cors(corsOptionsDelegate), (req, res) => {
         res.sendStatus(204);
     })
-    .post(cors(corsOptionsDelegate), registerOperator);
+    .post(cors(corsOptionsDelegate), asyncHandler(registerOperator));
 
 operatorRouter
     .route('/login')
     .options(cors(corsOptionsDelegate), (req, res) => {
         res.sendStatus(204);
     })
-    .post(cors(corsOptionsDelegate), authenticateLogin, loginOperator);
+    .post(
+        cors(corsOptionsDelegate),
+        authenticateLogin,
+        asyncHandler(loginOperator)
+    );
 
 export default operatorRouter;
