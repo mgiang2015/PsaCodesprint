@@ -34,9 +34,9 @@ export default function LoginPage() {
                     <PaddingY padding={2} />
 
                     <Divider style={{width:'100%'}}>or</Divider>
-                    
+
                     <PaddingY padding={2} />
-                    <Button variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}}>Login</Button>
+                    <Button variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}} href="/signup">Sign Up</Button>
                 </Paper>
             </form>
         </Container>
