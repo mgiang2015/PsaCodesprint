@@ -1,5 +1,4 @@
-import { Box } from "@mui/system";
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import UndrawIcon from '../assets/UndrawIcon.svg'
 
 function LandingPage() {

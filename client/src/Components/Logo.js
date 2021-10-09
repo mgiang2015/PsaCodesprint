@@ -4,7 +4,7 @@ import logo from '../assets/logoWithText.svg';
 
 function Logo() {
 	return (
-        <AppBar position="static" style={{ background: '#FFF' }}>
+        <AppBar position="static" style={{ background: '#FFF', height: "10vh" }}>
             <Container maxWidth="xxl">
             <Toolbar>
                 <IconButton edge="start" sx={{ ml: 20, my: 1, "&:hover": { backgroundColor: "transparent" } }} href="/" disableRipple>
