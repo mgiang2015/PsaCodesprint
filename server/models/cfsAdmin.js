@@ -39,16 +39,16 @@ const cfsAdminSchema = new Schema(
             default: 'local'
         },
         stationName: {
-            type: String,
-            unique: true
+            type: String
+            // unique: true
         },
         location: {
-            type: String,
-            unique: true
+            type: String
+            // unique: true
         },
         phoneNo: {
-            type: String,
-            unique: true
+            type: String
+            // unique: true
         }
     },
     {
