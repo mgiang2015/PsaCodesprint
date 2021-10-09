@@ -19,6 +19,10 @@ const warehouseSchema = new Schema(
         cfsAdmin: {
             type: Schema.Types.ObjectId,
             ref: 'CFSAdmin'
+        },
+        operator: {
+            type: Schema.Types.ObjectId,
+            ref: 'Operator'
         }
     },
     {

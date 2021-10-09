@@ -4,8 +4,8 @@ import {
     postWarehouse,
     getWarehouse,
     updateWarehouse,
-    deleteWarehouse,
-    deleteAllWarehouses
+    deleteWarehouse
+    // deleteAllWarehouses
 } from '../controllers/warehouseController';
 import asyncHandler from 'express-async-handler';
 import cors from 'cors';
@@ -21,8 +21,8 @@ warehouseRouter
         res.sendStatus(200);
     })
     .get(cors(), asyncHandler(getAllWarehouses))
-    .post(cors(corsOptionsDelegate), asyncHandler(postWarehouse))
-    .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllWarehouses));
+    .post(cors(corsOptionsDelegate), asyncHandler(postWarehouse));
+// .delete(cors(corsOptionsDelegate), asyncHandler(deleteAllWarehouses));
 
 warehouseRouter
     .route('/:warehouseId')
