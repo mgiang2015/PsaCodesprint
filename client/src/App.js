@@ -1,11 +1,16 @@
 import React from "react";
-import OperatorForm from "./OperatorForm";
+import LandingPage from "./pages/LandingPage";
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
     <div>
-      <h1>Next Truck</h1>
-      <OperatorForm />
+        <Switch>
+            <Route exact path="/">
+                <LandingPage />
+            </Route>
+        </Switch>
+        
     </div>
   );
 }
