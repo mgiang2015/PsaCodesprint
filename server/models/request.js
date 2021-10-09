@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const requestSchema = new mongoose.Schema(
@@ -41,5 +41,4 @@ const requestSchema = new mongoose.Schema(
     }
 );
 
-const Request = mongoose.model('Request', requestSchema);
-module.exports = Request;
+export const Request = mongoose.model('Request', requestSchema);

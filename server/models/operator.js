@@ -23,7 +23,7 @@ const operatorSchema = new Schema(
         },
         loginType: {
             type: String,
-            enum: ['local', 'google'],
+            enum: ['local-operator', 'google'],
             default: 'local-operator'
         },
         cfsAdmin: {

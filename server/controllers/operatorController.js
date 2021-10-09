@@ -15,7 +15,7 @@ import { validateLoginInput } from '../utils/validation/login';
  * @route POST operators/register
  * @desc Register operator
  */
-export const registerOperator = (req, res, next) => {
+export async function registerOperator(req, res, next) {
     // Validate operator input
     const { errors, success } = validateRegisterInput(req.body);
 
@@ -38,7 +38,7 @@ export const registerOperator = (req, res, next) => {
                         username: req.body.username
                     }),
                     req.body.password,
-                    (err, operator) => {
+                    async (err, operator) => {
                         if (err) {
                             res.statusCode = 400;
                             res.setHeader('Content-Type', 'application/json');
@@ -49,6 +49,22 @@ export const registerOperator = (req, res, next) => {
                         } else {
                             // Adds email and isAdmin status to the operator object
                             // operator.isAdmin = req.body.isAdmin;
+
+                            if (req.body.cfsAdmin) {
+                                try {
+                                    await CFSAdmin.findByIdAndUpdate(
+                                        req.body.cfsAdmin,
+                                        {
+                                            $addToSet: {
+                                                operators: operator._id
+                                            }
+                                        }
+                                    );
+                                } catch (err) {
+                                    console.log(err);
+                                    res.status(500).send(err);
+                                }
+                            }
 
                             operator.save((err) => {
                                 if (err) {
@@ -61,17 +77,6 @@ export const registerOperator = (req, res, next) => {
                                         success: false,
                                         message: err.message
                                     });
-                                }
-
-                                if (req.body.cfsAdmin) {
-                                    await CFSAdmin.findByIdAndUpdate(
-                                        req.body.cfsAdmin,
-                                        {
-                                            $addToSet: {
-                                                operators: operator._id
-                                            }
-                                        }
-                                    );
                                 }
 
                                 passport.authenticate('local-operator')(
@@ -103,7 +108,7 @@ export const registerOperator = (req, res, next) => {
             }
         })
         .catch((err) => console.log(err));
-};
+}
 
 // Authenticate operator with custom error message
 export const authenticateLogin = (req, res, next) => {

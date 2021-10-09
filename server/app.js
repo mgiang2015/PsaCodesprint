@@ -11,7 +11,8 @@ import { localAdminStrategy } from './utils/config/passport';
 import truckRouter from './routes/truckRouter';
 import warehouseRouter from './routes/warehouseRouter';
 import cfsAdminRouter from './routes/cfsAdminRouter';
-// import requestRouter from './routes/requestRouter';
+import requestRouter from './routes/requestRouter';
+import operatorRouter from './routes/operatorRouter';
 
 import passport from 'passport';
 const __dirname = path.resolve();
@@ -52,7 +53,8 @@ const port = process.env.PORT || 5000;
 app.use('/api/trucks', truckRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/cfsAdmins', cfsAdminRouter);
-// app.use('/api/request', requestRouter);
+app.use('/api/operators', operatorRouter);
+app.use('/api/request', requestRouter);
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {
