@@ -42,6 +42,14 @@ export async function postRequest(req, res) {
         // Save Request to DB
         const request = await newRequest.save();
 
+        await CFSAdmin.findByIdAndUpdate(req.body.cfsAdmin, {
+            $addToSet: { requests: newRequest._id }
+        });
+
+        await Operator.findByIdAndUpdate(req.body.operator, {
+            $addToSet: { requests: newRequest._id }
+        });
+
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(request);
@@ -73,6 +81,18 @@ export async function updateRequest(req, res) {
 export async function deleteRequest(req, res) {
     const request = await Request.findById(req.params.requestId);
     if (request != null) {
+        await Operator.findByIdAndUpdate(request.operator, {
+            $pull: {
+                requests: request._id
+            }
+        });
+
+        await CFSAdmin.findByIdAndUpdate(request.cfsAdmin, {
+            $pull: {
+                requests: request._id
+            }
+        });
+
         const removedRequest = await Request.findByIdAndRemove(
             req.params.requestId
         );
@@ -86,15 +106,15 @@ export async function deleteRequest(req, res) {
     }
 }
 
-export async function deleteAllRequests(req, res) {
-    try {
-        const resp = await Request.deleteMany({});
+// export async function deleteAllRequests(req, res) {
+//     try {
+//         const resp = await Request.deleteMany({});
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(resp);
-    } catch (err) {
-        res.statusCode = 500;
-        res.send(err);
-    }
-}
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'application/json');
+//         res.json(resp);
+//     } catch (err) {
+//         res.statusCode = 500;
+//         res.send(err);
+//     }
+// }
