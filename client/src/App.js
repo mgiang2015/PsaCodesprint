@@ -1,13 +1,14 @@
 import React from "react";
 import OperatorForm from "./OperatorForm";
 import Logo from "./Components/Logo"
+import LoginPage from "./UserAuth/LoginPage";
 
 function App() {
   return (
     <div>
-      <h1>Next Truck</h1>
       <Logo height={'5em'} />
       <OperatorForm />
+      <LoginPage />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form"
+import { Select, MenuItem, InputLabel, TextField, Button } from '@mui/material';
+
 
 export default function OperatorForm() {
 	const { register, handleSubmit } = useForm();
@@ -11,23 +13,20 @@ export default function OperatorForm() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div>
-				<label>{"Shipping to Operator"}</label>
-				<select {...register("destination")}>
-					<option value="A">A</option>
-					<option value="B">B</option>
-					<option value="C">C</option>
-					<option value="D">D</option>
-				</select>
+				<Select {...register("destination")} label="Shipping to Operator">
+					<MenuItem value="A">A</MenuItem>
+					<MenuItem value="B">B</MenuItem>
+					<MenuItem value="C">C</MenuItem>
+					<MenuItem value="D">D</MenuItem>
+				</Select>
 			</div>
 			<div>
-				<label>{"Load (in TEU)"}</label>
-				<input {...register("load")} />
+				<TextField {...register("load")} label="Load (in TEU)" variant="outlined" />
 			</div>
 			<div>
-				<label>{"Arrival time in HHMM"}</label>
-				<input {...register("timeLimit")} />
+				<TextField {...register("timeLimit")} label="Arrival time in HHMM" variant="outlined" />
 			</div>
-			<button type="submit">{"Submit!"}</button>
+			<Button type="submit">{"Submit!"}</Button>
 		</form>
 	);
 }
