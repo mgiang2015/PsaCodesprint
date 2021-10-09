@@ -3,8 +3,8 @@ import {
     getAllWarehouses,
     postWarehouse,
     getWarehouse,
-    updateWarehouse,
-    deleteWarehouse
+    updateWarehouse
+    // deleteWarehouse
     // deleteAllWarehouses
 } from '../controllers/warehouseController';
 import asyncHandler from 'express-async-handler';
@@ -30,7 +30,7 @@ warehouseRouter
         res.sendStatus(200);
     })
     .get(cors(), asyncHandler(getWarehouse))
-    .put(cors(corsOptionsDelegate), asyncHandler(updateWarehouse))
-    .delete(cors(corsOptionsDelegate), asyncHandler(deleteWarehouse));
+    .put(cors(corsOptionsDelegate), asyncHandler(updateWarehouse));
+// .delete(cors(corsOptionsDelegate), asyncHandler(deleteWarehouse));
 
 export default warehouseRouter;

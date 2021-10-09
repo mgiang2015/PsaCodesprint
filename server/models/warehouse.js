@@ -18,11 +18,13 @@ const warehouseSchema = new Schema(
         },
         cfsAdmin: {
             type: Schema.Types.ObjectId,
-            ref: 'CFSAdmin'
+            ref: 'CFSAdmin',
+            required: true
         },
         operator: {
             type: Schema.Types.ObjectId,
-            ref: 'Operator'
+            ref: 'Operator',
+            required: true
         }
     },
     {

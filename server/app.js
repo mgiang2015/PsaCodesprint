@@ -5,7 +5,10 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import path from 'path';
 import dotenv from 'dotenv';
-import { localAdminStrategy } from './utils/config/passport';
+import {
+    localAdminStrategy,
+    localOperatorStrategy
+} from './utils/config/passport';
 
 // Import routers
 import truckRouter from './routes/truckRouter';
@@ -45,6 +48,7 @@ app.use(passport.initialize());
 
 // Passport config
 localAdminStrategy;
+localOperatorStrategy;
 
 //Set port
 const port = process.env.PORT || 5000;
@@ -54,7 +58,7 @@ app.use('/api/trucks', truckRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/cfsAdmins', cfsAdminRouter);
 app.use('/api/operators', operatorRouter);
-app.use('/api/request', requestRouter);
+app.use('/api/requests', requestRouter);
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {

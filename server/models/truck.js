@@ -13,7 +13,8 @@ const truckSchema = new Schema(
         },
         licensePlate: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         cargoSpace: {
             type: Number,
@@ -21,7 +22,8 @@ const truckSchema = new Schema(
         },
         cfsAdmin: {
             type: Schema.Types.ObjectId,
-            ref: 'CFSAdmin'
+            ref: 'CFSAdmin',
+            required: true
         }
     },
     {
