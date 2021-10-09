@@ -14,6 +14,10 @@ const truckSchema = new Schema(
         licensePlate: {
             type: String,
             required: true
+        },
+        cargoSpace: {
+            type: Number,
+            default: 0
         }
     },
     {

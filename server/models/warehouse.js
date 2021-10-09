@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const warehouseSchema = new mongoose.Schema(
+const warehouseSchema = new Schema(
     {
         level: {
             type: Number,
