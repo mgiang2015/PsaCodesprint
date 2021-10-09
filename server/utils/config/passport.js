@@ -11,8 +11,7 @@ const __dirname = path.resolve();
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 import { CFSAdmin } from '../../models/cfsAdmin';
-// import { Operator } from '../../models/operator';
-// import { Tokens } from '../../models/token';
+import { Operator } from '../../models/operator';
 
 /**
  * Configure passport to use local strategy.
@@ -24,7 +23,10 @@ export const localAdminStrategy = passport.use(
     new LocalStrategy(CFSAdmin.authenticate())
 );
 
-// export const localOperatorStrategy = passport.use('local-operator', Operator.createStrategy());
+export const localOperatorStrategy = passport.use(
+    'local-operator',
+    Operator.createStrategy()
+);
 
 passport.serializeUser((obj, done) => {
     CFSAdmin.serializeUser(obj)

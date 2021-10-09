@@ -10,6 +10,12 @@ const operatorSchema = new Schema(
                 ref: 'Warehouse'
             }
         ],
+        requests: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Request'
+            }
+        ],
         username: {
             type: String,
             required: true,

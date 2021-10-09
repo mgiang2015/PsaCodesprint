@@ -75,7 +75,7 @@ export async function updateTruck(req, res) {
 export async function deleteTruck(req, res) {
     const truck = await Truck.findById(req.params.truckId);
     if (truck != null) {
-        await CFSAdmin.findByIdAndUpdate(warehouse.cfsAdmin, {
+        await CFSAdmin.findByIdAndUpdate(truck.cfsAdmin, {
             $pull: {
                 trucks: truck._id
             }

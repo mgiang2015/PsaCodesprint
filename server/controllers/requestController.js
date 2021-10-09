@@ -1,10 +1,16 @@
 import express from 'express';
+import mongoose from 'mongoose';
+
 import { Request } from '../models/request';
+import { CFSAdmin } from '../models/cfsAdmin';
+import { Operator } from '../models/operator';
+
+const { Types } = mongoose;
 
 export async function getAllRequests(req, res) {
     try {
         Request.find({})
-            .populate('origin destination operator')
+            // .populate('origin destination operator')
             .then((requests) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -54,6 +60,7 @@ export async function postRequest(req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.json(request);
     } catch (err) {
+        console.log(err);
         if (err.errors) {
             res.statusCode = 400;
             res.send(err);

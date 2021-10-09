@@ -1,7 +1,11 @@
 import express from 'express';
+import mongoose from 'mongoose';
+
 import { CFSAdmin } from '../models/cfsAdmin';
 import { Warehouse } from '../models/warehouse';
 import { Operator } from '../models/operator';
+
+const { Types } = mongoose;
 
 export async function getAllWarehouses(req, res) {
     try {
@@ -87,35 +91,35 @@ export async function updateWarehouse(req, res) {
     res.json(warehouse);
 }
 
-export async function deleteWarehouse(req, res) {
-    const warehouse = await Warehouse.findById(req.params.warehouseId);
-    if (warehouse != null) {
-        await Operator.findByIdAndUpdate(warehouse.operator, {
-            $pull: {
-                warehouses: warehouse._id
-            }
-        });
+// export async function deleteWarehouse(req, res) {
+//     const warehouse = await Warehouse.findById(req.params.warehouseId);
+//     if (warehouse != null) {
+//         await Operator.findByIdAndUpdate(warehouse.operator, {
+//             $pull: {
+//                 warehouses: warehouse._id
+//             }
+//         });
 
-        await CFSAdmin.findByIdAndUpdate(warehouse.cfsAdmin, {
-            $pull: {
-                warehouses: warehouse._id
-            }
-        });
+//         await CFSAdmin.findByIdAndUpdate(warehouse.cfsAdmin, {
+//             $pull: {
+//                 warehouses: warehouse._id
+//             }
+//         });
 
-        const removedWarehouse = await Warehouse.findByIdAndRemove(
-            req.params.warehouseId
-        );
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(removedWarehouse);
-    } else {
-        let err = new Error(
-            'Warehouse ' + req.params.warehouseId + ' not found!'
-        );
-        res.statusCode = 404;
-        return next(err);
-    }
-}
+//         const removedWarehouse = await Warehouse.findByIdAndRemove(
+//             req.params.warehouseId
+//         );
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'application/json');
+//         res.json(removedWarehouse);
+//     } else {
+//         let err = new Error(
+//             'Warehouse ' + req.params.warehouseId + ' not found!'
+//         );
+//         res.statusCode = 404;
+//         return next(err);
+//     }
+// }
 
 // export async function deleteAllWarehouses(req, res) {
 //     try {
