@@ -3,7 +3,7 @@ import UndrawIcon from '../assets/UndrawIcon.svg'
 
 function LandingPage() {
     return(
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '4rem'}}>
             <Box component="img" 
             sx={{
                 height: 500,
