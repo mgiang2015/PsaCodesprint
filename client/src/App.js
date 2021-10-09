@@ -6,6 +6,7 @@ import SignupPage from "./UserAuth/SignupPage";
 import Logo from "./Components/Logo";
 import OperatorDashboard from "./Operator/OperatorDashboard";
 import CfsDashboard from "./Cfs/CfsDashboard";
+import CfsOperatorForm from "./Cfs/CfsOperatorForm";
 import OperatorForm from "./Operator/OperatorForm"
 import OperatorTruckForm from "./Operator/OperatorTruckForm"
 
@@ -25,6 +26,9 @@ function App() {
             </Route>
             <Route exact path="/cfs">
                 <CfsDashboard />
+            </Route>
+            <Route exact path="/cfs/addOperator">
+                <CfsOperatorForm />
             </Route>
             <Route exact path="/operator">
                 <OperatorDashboard />
