@@ -158,9 +158,10 @@ export const loginOperator = (req, res, next) => {
         res.json({
             success: true,
             message: 'You are successfully logged in!',
-            username: operator.username,
-            userId: operator._id,
-            userType: 'operator',
+            userProfile: operator,
+            // username: operator.username,
+            // userId: operator._id,
+            userType: 'operators',
             errors: {}
         });
     });
