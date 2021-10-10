@@ -141,12 +141,12 @@ function orderToDelivery(orders) {
     while (orders.length > 0) {
         let o = orders.shift()
         while (o.pallets > 10) {
-            deliveries.push(new Delivery(o.origin, o.dest, 10))
+            deliveries.push(new Delivery(o.origin, o.dest, 10, o.code))
             o.pallets -= 10
         }
-        deliveries.push(new Delivery(o.origin, o.dest, o.pallets))
+        deliveries.push(new Delivery(o.origin, o.dest, o.pallets, o.code))
     }
     return deliveries
 }
 
-export { Delivery, Order, orderToDelivery, containerize }
+export { Delivery, Order, orderToDelivery, containerize, sortDeliveries }

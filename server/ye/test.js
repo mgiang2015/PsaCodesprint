@@ -4,8 +4,8 @@ import { scheduleTrucks, Truck } from './scheduling.js'
 import {createTrucks} from './algo.js'
 
 let orders = [
-    new Order(3, 1, 15),
-    new Order(2, 1, 12),
+    new Order(3, 1, 15, 'sdf'),
+    new Order(2, 1, 12, 'bfa'),
     new Order(6, 3, 8),
     new Order(5, 3, 2),
     new Order(3, 5, 3),
