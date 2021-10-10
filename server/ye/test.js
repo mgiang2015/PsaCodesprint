@@ -22,6 +22,6 @@ let trucks = algo.createTrucks(orders)
 let toPrint = trucks
 import util from 'util'
 console.log(util.inspect(toPrint, { showHidden: false, depth: null, colors: true }))
-console.log(trucks.length)
+// console.log(trucks.length)
 
 console.log(algo.getSends(trucks, 3))
