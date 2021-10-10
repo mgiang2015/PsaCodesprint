@@ -9,7 +9,7 @@ export default function Sidebar({ options }) {
 		<Box sx={{ color: "#FFFFFF", backgroundColor: "#1D3557", padding: "2rem", height: "100%" }}>
 			<MenuList sx={{ height: "100%" }}>
 				{options.map((option) => (
-					<MenuItem>
+					<MenuItem key={option[0]}>
 						<Link style={{ textDecoration: "none", color: "#FFFFFF" }} to={option[1]}>{option[0]}</Link>
 					</MenuItem>
 				))}
