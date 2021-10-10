@@ -25,6 +25,10 @@ const warehouseSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Operator',
             required: true
+        },
+        customId: {
+            type: Number,
+            default: 1
         }
     },
     {

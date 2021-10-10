@@ -3,43 +3,75 @@ const Schema = mongoose.Schema;
 
 const scheduleSchema = new mongoose.Schema(
     {
+        // pickups: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Warehouse'
+        //     }
+        // ],
+        pickups: [
+            {
+                type: Number
+            }
+        ],
+        // destination: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'Warehouse',
+        //     required: true
+        // },
+        destination: {
+            type: Number
+        },
+        estTotalTime: {
+            type: Number
+        },
+
+        // path: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Warehouse'
+        //     }
+        // ],
+        path: [
+            {
+                type: Number
+            }
+        ],
+        // deliverAt: {
+        //     type: Date,
+        //     required: true
+        // },
+        // deliverBy: {
+        //     type: Date,
+        //     required: true
+        // },
         deliverAt: {
-            type: Date,
-            required: true
+            type: Number
         },
         deliverBy: {
-            type: Date,
-            required: true
+            type: Number
         },
-        assignedTruck: {
-            type: Schema.Types.ObjectId,
-            ref: 'Truck',
-            required: true
-        },
-        origin: {
-            type: Schema.Types.ObjectId,
-            ref: 'Warehouse',
-            required: true
-        },
-        destination: {
-            type: Schema.Types.ObjectId,
-            ref: 'Warehouse',
-            required: true
-        },
-        load: {
-            type: Number,
-            required: true
-        },
-        operator: {
-            type: Schema.Types.ObjectId,
-            ref: 'Operator',
-            required: true
-        },
-        cfsAdmin: {
-            type: Schema.Types.ObjectId,
-            ref: 'CFSAdmin',
-            required: true
+        // assignedTruck: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'Truck',
+        //     required: true
+        // },
+        distance: {
+            type: Number
         }
+        // load: {
+        //     type: Number
+        // }
+        // operator: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'Operator',
+        //     required: true
+        // },
+        // cfsAdmin: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'CFSAdmin',
+        //     required: true
+        // }
     },
     {
         timestamps: true

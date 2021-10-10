@@ -5,6 +5,9 @@ import { Request } from '../models/request';
 import { CFSAdmin } from '../models/cfsAdmin';
 import { Operator } from '../models/operator';
 import { Schedule } from '../models/schedule';
+import { Truck } from '../models/truck';
+import { createTrucks } from '../ye/algo';
+import { Order } from '../ye/teu';
 
 const { Types } = mongoose;
 
@@ -50,6 +53,53 @@ export async function postRequest(req, res) {
         const request = await newRequest.save();
 
         // Call the algo
+        const requests = await Request.find({});
+        console.log(requests);
+        // .populate('origin destination');
+
+        const orders = requests.map((requ) => {
+            console.log(requ);
+            return new Order(
+                requ.origin.customId,
+                requ.destination.customId,
+                requ.load,
+                requ._id
+            );
+        });
+
+        const trucks = createTrucks(orders);
+
+        for (let truck in trucks) {
+            const dbTruck = Truck.findOne({ licensePlate: truck.platenumber });
+
+            const scheduleArr = truck.schedule;
+
+            const dbScheduleArr = scheduleArr.map(async (sch) => {
+                // let loadCount = sch.route.container.contents.map(
+                //     (c) => c.pallets
+                // );
+                const content = {
+                    pickups: sch.pickups,
+                    destination: sch.destination,
+                    distance: sch.distance,
+                    path: sch.path,
+                    deliverAt: sch.startTime,
+                    deliveryBy: sch.deliveryTime,
+                    // load: loadCount,
+                    estTotalTime: sch.duration
+                };
+
+                const newSchedule = new Schedule(content);
+                await newSchedule.save();
+            });
+
+            const schIdArr = dbScheduleArr.map((sch) => sch._id);
+
+            dbTruck.availTime = truck.availTime;
+            dbTruck.schedule = schIdArr;
+            await dbTruck.save();
+        }
+
         const newSchedules = []; // replace with algo result
 
         // If algo no error, delete the current schedule for the date and cfsAdmin
