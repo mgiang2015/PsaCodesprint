@@ -29,7 +29,7 @@ export default function LoginPage() {
                     </Box>
                     <PaddingY padding={1.5} />
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', width: "100%"}}>
-                        <Button size="large" variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none'}}>Login</Button>
+                        <Button size="large" variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none'}} type="submit">Login</Button>
                     </Box>
                     <PaddingY padding={2} />
 
