@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { Request } from '../models/request';
 import { CFSAdmin } from '../models/cfsAdmin';
 import { Operator } from '../models/operator';
+import { Schedule } from '../models/schedule';
 
 const { Types } = mongoose;
 
@@ -48,6 +49,19 @@ export async function postRequest(req, res) {
         // Save Request to DB
         const request = await newRequest.save();
 
+        // Call the algo
+        const newSchedules = []; // replace with algo result
+
+        // If algo no error, delete the current schedule for the date and cfsAdmin
+        // await Schedule.deleteMany({
+        //     cfsAdmin: request.cfsAdmin,
+        //     deliveredBy: { $gte: newDate(request.endTime) }
+        // });
+
+        // Insert new schedules into db
+        // await Schedule.insertMany(newSchedules);
+
+        // Update CFS Admin and operator with request
         await CFSAdmin.findByIdAndUpdate(req.body.cfsAdmin, {
             $addToSet: { requests: newRequest._id }
         });
@@ -55,6 +69,9 @@ export async function postRequest(req, res) {
         await Operator.findByIdAndUpdate(req.body.operator, {
             $addToSet: { requests: newRequest._id }
         });
+
+        // Else if algo error, remove newRequest
+        // await Request.findByIdAndDelete(request._id);
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');

@@ -41,6 +41,7 @@ export const registerCFSAdmin = (req, res, next) => {
                     req.body.password,
                     (err, cfsAdmin) => {
                         if (err) {
+                            console.log(err);
                             res.statusCode = 400;
                             res.setHeader('Content-Type', 'application/json');
                             res.json({
@@ -48,11 +49,21 @@ export const registerCFSAdmin = (req, res, next) => {
                                 errors: err
                             });
                         } else {
-                            // Adds email and isAdmin status to the cfsAdmin object
-                            // cfsAdmin.isAdmin = req.body.isAdmin;
+                            if (req.body.stationName) {
+                                cfsAdmin.stationName = req.body.stationName;
+                            }
+
+                            if (req.body.location) {
+                                cfsAdmin.location = req.body.location;
+                            }
+
+                            if (req.body.phoneNo) {
+                                cfsAdmin.phoneNo = req.body.phoneNo;
+                            }
 
                             cfsAdmin.save((err) => {
                                 if (err) {
+                                    console.log(err);
                                     res.statusCode = 500;
                                     res.setHeader(
                                         'Content-Type',

@@ -28,12 +28,12 @@ const cfsAdminSchema = new Schema(
                 ref: 'Request'
             }
         ],
-        schedules: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Schedules'
-            }
-        ],
+        // schedules: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Schedule'
+        //     }
+        // ],
         username: {
             type: String,
             required: true,

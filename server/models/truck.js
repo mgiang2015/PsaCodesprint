@@ -25,6 +25,12 @@ const truckSchema = new Schema(
             ref: 'CFSAdmin',
             required: true
         }
+        // schedules: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Schedule'
+        //     }
+        // ]
     },
     {
         timestamps: true
