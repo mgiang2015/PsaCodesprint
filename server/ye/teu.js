@@ -43,6 +43,8 @@ class Container {
     }
 }
 
+// Assumes all deliveries are going to the same operator and packs them efficiently
+// into containers using MFFD. Returns list of containers
 // Must guarantee that no item > binSize
 function containerize(deliveries) {
     const containerSize = 10;
@@ -53,11 +55,6 @@ function containerize(deliveries) {
     let medium = deliveries.filter(d => d.pallets <= containerSize / 2 && d.pallets > containerSize / 3).sort(ascPallet)
     let small = deliveries.filter(d => d.pallets <= containerSize / 3 && d.pallets > containerSize / 6).sort(ascPallet)
     let tiny = deliveries.filter(d => d.pallets <= containerSize / 6).sort(ascPallet)
-
-    console.log(large)
-    console.log(medium)
-    console.log(small)
-    console.log(tiny)
 
     // 1. Allot a bin for each large item, ordered largest to smallest
     let containers = []
@@ -129,3 +126,50 @@ function containerize(deliveries) {
 
     return containers;
 }
+
+class Order {
+    constructor(origin, dest, pallets, code) {
+        this.origin = origin;
+        this.dest = dest;
+        this.pallets = pallets;
+        this.code = code;
+    }
+}
+
+function orderToDelivery(orders) {
+    let deliveries = []
+    while (orders.length > 0) {
+        let o = orders.shift()
+        while (o.pallets > 10) {
+            deliveries.push(new Delivery(o.origin, o.dest, 10))
+            o.pallets -= 10
+        }
+        deliveries.push(o)
+    }
+    return deliveries
+}
+
+let orders = [
+    new Order('a', 'b', 15),
+    new Order('a', 'b', 12),
+    new Order('a', 'b', 8),
+    new Order('a', 'b', 2),
+    new Order('a', 'b', 3),
+]
+
+// Tests
+let deliveries = [
+    new Delivery('a', 'b', 10),
+    new Delivery('a', 'b', 8),
+    new Delivery('a', 'b', 5),
+    new Delivery('a', 'b', 10),
+    new Delivery('a', 'b', 2),
+    new Delivery('a', 'b', 2),
+    new Delivery('a', 'b', 3)
+]
+
+// deliveries = orderToDelivery(orders)
+
+import util from 'util'
+let containers = containerize(deliveries);
+console.log(util.inspect(containers, {showHidden: false, depth: null, colors: true}))
