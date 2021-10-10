@@ -1,5 +1,5 @@
 class Delivery {
-    constructor (origin, dest, pallets, code) {
+    constructor(origin, dest, pallets, code) {
         this.origin = origin;
         this.dest = dest;
         this.pallets = pallets;
@@ -23,49 +23,59 @@ function sortDeliveries(deliveries) {
 }
 
 class Container {
-    constructor (code) {
+    constructor(code) {
         this.contents = [],
-        this.code = code
+            this.code = code
     }
 
-    addDelivery (delivery) {
+    add(delivery) {
         this.contents.push(delivery)
     }
 
-    getLoad () {
+    getLoad() {
         return this.contents
             .map((d) => d.pallets)
-            .reduce((p1, p2) => p1 + p2)
+            .reduce((p1, p2) => p1 + p2, 0)
     }
 
-    getFreeLoad () {
+    getFreeLoad() {
         return 10 - this.getLoad();
     }
 }
 
 // Must guarantee that no item > binSize
-function mffd(items, binSize) {
-    let large = items.filter(i => i > binSize / 2).sort((x ,y) => x - y)
-    let medium = items.filter(i => i <= binSize / 2 && i > binSize / 3).sort((x ,y) => x - y)
-    let small = items.filter(i => i <= binSize / 3 && i > binSize / 6).sort((x ,y) => x - y)
-    let tiny = items.filter(i => i <= binSize / 6).sort((x ,y) => x - y)
+function containerize(deliveries) {
+    const containerSize = 10;
+
+    let ascPallet = (x, y) => x.pallets - y.pallets;
+
+    let large = deliveries.filter(d => d.pallets > containerSize / 2).sort(ascPallet)
+    let medium = deliveries.filter(d => d.pallets <= containerSize / 2 && d.pallets > containerSize / 3).sort(ascPallet)
+    let small = deliveries.filter(d => d.pallets <= containerSize / 3 && d.pallets > containerSize / 6).sort(ascPallet)
+    let tiny = deliveries.filter(d => d.pallets <= containerSize / 6).sort(ascPallet)
+
+    console.log(large)
+    console.log(medium)
+    console.log(small)
+    console.log(tiny)
 
     // 1. Allot a bin for each large item, ordered largest to smallest
-    let bins = []
+    let containers = []
     while (large.length > 0) {
-        bins.push([large.pop()])
+        let c = new Container();
+        c.add(large.pop())
+        containers.push(c)
     }
 
     // 2. Proceed forward through the bins. On each: If the smallest remaining 
     // medium item does not fit, skip this bin. Otherwise, place the largest remaining 
     // medium item that fits.
-    for (var i = 0; i < bins.length; i++) {
-        let b = bins[i];
-        let binFilled = b.reduce((x , y) => x + y)
+    for (var i = 0; i < containers.length; i++) {
+        let c = containers[i];
         for (var j = 0; j < medium.length; j++) {
             let m = medium[j]
-            if (binSize - binFilled >= m) {
-                b.push(m)
+            if (m.pallets <= c.getFreeLoad()) {
+                c.add(m)
                 medium.splice(j, 1);
             }
         }
@@ -75,22 +85,20 @@ function mffd(items, binSize) {
     // On each: If the two smallest remaining small items do not fit, skip this 
     // bin. Otherwise, place the smallest remaining small item and the largest 
     // remaining small item that fits.
-    for (var i = bins.length - 1; i >= 0; i--) {
-        let b = bins[i]
-        let binFilled = b.reduce((x , y) => x + y)
-        if (small.length >= 2 && (small[0] + small[1] > binSize - binFilled)) {
+    for (var i = containers.length - 1; i >= 0; i--) {
+        let c = containers[i]
+        if (small.length >= 2 && (small[0].pallets + small[1].pallets > c.getFreeLoad())) {
             continue;
         }
         if (small.length < 1) break;
-        if (small[0] > binSize - binFilled) {
+        if (small[0].pallets > c.getFreeLoad()) {
             continue;
         }
-        b.push(small.shift())
-        binFilled = b.reduce((x , y) => x + y)
+        c.add(small.shift())
         for (var j = 0; j < small.length; j++) {
             let s = small[j]
-            if (binSize - binFilled >= s) {
-                b.push(s)
+            if (s.pallets <= c.getFreeLoad()) {
+                c.add(s)
                 small.splice(j, 1);
             }
         }
@@ -98,126 +106,26 @@ function mffd(items, binSize) {
 
     // 4. Proceed forward through all bins. If the smallest remaining item of any size class does 
     // not fit, skip this bin. Otherwise, place the largest item that fits and stay on this bin.
-    let remaining = medium.concat(small).concat(tiny).sort((x ,y) => x - y)
-    for (var i = 0; i < bins.length; i++) {
-        let b = bins[i]
-        let binFilled = b.reduce((x , y) => x + y)
-        while (remaining.length > 0 && remaining[0] <= binSize - binFilled) {
-            b.push(remaining.shift())
-            binFilled = b.reduce((x , y) => x + y)
+    let remaining = medium.concat(small).concat(tiny).sort(ascPallet)
+    for (var i = 0; i < containers.length; i++) {
+        let c = containers[i]
+        while (remaining.length > 0 && remaining[0].pallets <= c.getFreeLoad()) {
+            c.add(remaining.shift())
         }
     }
 
     // 5. Use FFD to pack the remaining items into new bins.
     while (remaining.length > 0) {
-        let b = []
-        let binFilled = b.reduce((x , y) => x + y, 0)
+        let c = new Container()
         for (var i = remaining.length - 1; i >= 0; i--) {
             let r = remaining[i]
-            if (r <= binSize - binFilled) {
-                b.push(r)
+            if (r.pallets <= c.getFreeLoad()) {
+                c.add(r)
                 remaining.splice(i, 1)
-                binFilled = b.reduce((x , y) => x + y, 0)
             }
         }
-        bins.push(b)
+        containers.push(c)
     }
 
-    return bins;
-}
-
-console.log(mffd([6,6,7,8,8,9,10, 4, 5, 3, 3, 3, 2, 1, 1, 1], 10))
-
-// let deliveries = [
-//     new Delivery('a', 'b', 10, '1b241'),
-//     new Delivery('a', 'c', 3, '82wf2'),
-//     new Delivery('b', 'c', 4, '5baa2')
-// ]
-// let c = new Container('AEBFQ');
-// c.addDelivery(deliveries[1])
-// c.addDelivery(deliveries[2])
-// console.log(c.contents)
-// console.log(c.getFreeLoad())
-
-// Must guarantee that no item > binSize
-function containerize(items, binSize) {
-    let large = items.filter(i => i > binSize / 2).sort((x ,y) => x - y)
-    let medium = items.filter(i => i <= binSize / 2 && i > binSize / 3).sort((x ,y) => x - y)
-    let small = items.filter(i => i <= binSize / 3 && i > binSize / 6).sort((x ,y) => x - y)
-    let tiny = items.filter(i => i <= binSize / 6).sort((x ,y) => x - y)
-
-    // 1. Allot a bin for each large item, ordered largest to smallest
-    let bins = []
-    while (large.length > 0) {
-        bins.push([large.pop()])
-    }
-
-    // 2. Proceed forward through the bins. On each: If the smallest remaining 
-    // medium item does not fit, skip this bin. Otherwise, place the largest remaining 
-    // medium item that fits.
-    for (var i = 0; i < bins.length; i++) {
-        let b = bins[i];
-        let binFilled = b.reduce((x , y) => x + y)
-        for (var j = 0; j < medium.length; j++) {
-            let m = medium[j]
-            if (binSize - binFilled >= m) {
-                b.push(m)
-                medium.splice(j, 1);
-            }
-        }
-    }
-
-    // 3. Proceed backward through those bins that do not contain a medium item.
-    // On each: If the two smallest remaining small items do not fit, skip this 
-    // bin. Otherwise, place the smallest remaining small item and the largest 
-    // remaining small item that fits.
-    for (var i = bins.length - 1; i >= 0; i--) {
-        let b = bins[i]
-        let binFilled = b.reduce((x , y) => x + y)
-        if (small.length >= 2 && (small[0] + small[1] > binSize - binFilled)) {
-            continue;
-        }
-        if (small.length < 1) break;
-        if (small[0] > binSize - binFilled) {
-            continue;
-        }
-        b.push(small.shift())
-        binFilled = b.reduce((x , y) => x + y)
-        for (var j = 0; j < small.length; j++) {
-            let s = small[j]
-            if (binSize - binFilled >= s) {
-                b.push(s)
-                small.splice(j, 1);
-            }
-        }
-    }
-
-    // 4. Proceed forward through all bins. If the smallest remaining item of any size class does 
-    // not fit, skip this bin. Otherwise, place the largest item that fits and stay on this bin.
-    let remaining = medium.concat(small).concat(tiny).sort((x ,y) => x - y)
-    for (var i = 0; i < bins.length; i++) {
-        let b = bins[i]
-        let binFilled = b.reduce((x , y) => x + y)
-        while (remaining.length > 0 && remaining[0] <= binSize - binFilled) {
-            b.push(remaining.shift())
-            binFilled = b.reduce((x , y) => x + y)
-        }
-    }
-
-    // 5. Use FFD to pack the remaining items into new bins.
-    while (remaining.length > 0) {
-        let b = []
-        let binFilled = b.reduce((x , y) => x + y, 0)
-        for (var i = remaining.length - 1; i >= 0; i--) {
-            let r = remaining[i]
-            if (r <= binSize - binFilled) {
-                b.push(r)
-                remaining.splice(i, 1)
-                binFilled = b.reduce((x , y) => x + y, 0)
-            }
-        }
-        bins.push(b)
-    }
-
-    return bins;
+    return containers;
 }
