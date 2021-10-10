@@ -6,7 +6,7 @@ function NavBar() {
 	return (
         <AppBar position="static" style={{ background: '#FFF', height: "10vh" }}>
             <Container sx={{height: "100%" }}>
-                <Toolbar sx={{display: "flex", alignItems: 'center', height: "100%" }}>
+                <Toolbar sx={{display: "flex", alignItems: 'center', height: "100%"}}>
                     <IconButton edge="start" sx={{ "&:hover": { backgroundColor: "transparent" } }} href="/" disableRipple>
                         <Box component="img" 
                                 sx={{

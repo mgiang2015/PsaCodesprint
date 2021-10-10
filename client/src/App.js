@@ -16,7 +16,7 @@ function App() {
     return (
         <Provider store={store}>
             <div>
-                <NavBar />
+                <NavBar/>
                 <Switch>
                     <Route exact path="/">
                         <LandingPage />
