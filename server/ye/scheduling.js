@@ -1,20 +1,33 @@
+import { start } from 'repl';
 import { Route } from './routing.js'
 
+// Number of minutes in a working day
 const workingDuration = 12 * 60;
 
+class ScheduledRoute {
+    constructor(route, startTime) {
+        this.route = route
+        this.startTime = startTime
+        this.deliveryTime = this.startTime + this.route.depotToDeliveryTime
+    }
+}
+
 class Truck {
+    // availTime = minutes since starting time where it is available
     constructor(plateNumber) {
-        this.routes = []
+        this.schedule = []
         this.plateNumber = plateNumber
+        this.availTime = 0
     }
 
     add(route) {
-        this.routes.push(route)
+        this.schedule.push(new ScheduledRoute(route, this.availTime))
+        this.availTime += route.duration
     }
 
     getLoad() {
-        return this.routes
-            .map(r => r.duration)
+        return this.schedule
+            .map(s => s.route.duration)
             .reduce((dur1, dur2) => dur1 + dur2, 0)
     }
 

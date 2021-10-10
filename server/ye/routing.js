@@ -34,6 +34,9 @@ class Route {
         this.dest = container.contents[0].dest
 
         let [dist, path] = shortestPath(depot, this.dest, this.pickups)
+        // find time from depot to delivery point
+        this.depotToDeliveryTime = dist + path.length * loadTime
+
         // add on the return to depot
         dist += apsp[this.dest][depot]
         path.push(depot)

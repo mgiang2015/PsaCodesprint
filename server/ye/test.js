@@ -8,7 +8,7 @@ let orders = [
     new Order(6, 3, 8),
     new Order(5, 3, 2),
     new Order(3, 5, 3),
-    new Order(3, 5, 200),
+    // new Order(3, 5, 200),
 ]
 
 let deliveries = orderToDelivery(orders)
