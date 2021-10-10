@@ -17,7 +17,6 @@ export default function SignupPage() {
 
 	return (
         <Container sx={{maxHeight: "90vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex"}}>
-            
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Paper elevation={12}
                     sx={{ display: 'flex',
@@ -34,18 +33,18 @@ export default function SignupPage() {
                         <TextField label="Password" variant="outlined" type="password"  {...register("password")}/>
                         <TextField label="Confirm Password" variant="outlined" type="password" {...register("password2")}/>
                         <FormControl fullWidth variant="standard" >
-                                <InputLabel id="demo-simple-select-label">User Type </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={userType}
-                                    label="User Type"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={"operators"}>Operator</MenuItem>
-                                    <MenuItem value={"cfsAdmins"}>CFS Admin</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <InputLabel id="demo-simple-select-label">User Type </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={userType}
+                                label="User Type"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={"operators"}>Operator</MenuItem>
+                                <MenuItem value={"cfsAdmins"}>CFS Admin</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Box>
                     <PaddingY padding={1.5} />
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', width: "100%"}}>
