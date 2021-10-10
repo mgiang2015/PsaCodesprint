@@ -62,16 +62,8 @@ function LoginPage(props) {
 
     const { errors } = userInput;
 
-    return (
-        <Container
-            sx={{
-                height: '80vh',
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                display: 'flex'
-            }}
-        >
+	return (
+        <Container sx={{display: "flex", height: "80vh", width: "100%", alignItems:"center", justifyContent: "center", my: '5vh'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Paper
                     elevation={12}
@@ -158,19 +150,7 @@ function LoginPage(props) {
                     <Divider style={{ width: '100%' }}>or</Divider>
 
                     <PaddingY padding={2} />
-                    <Button
-                        component={Link}
-                        variant="contained"
-                        sx={{
-                            display: 'flex',
-                            px: 5,
-                            textTransform: 'none',
-                            width: '100%'
-                        }}
-                        to="/signup"
-                    >
-                        Sign Up
-                    </Button>
+                    <Button component={Link} variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}} to="/signup">Sign Up</Button>
                 </Paper>
             </form>
         </Container>

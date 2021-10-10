@@ -5,7 +5,6 @@ import UndrawIcon from '../assets/UndrawIcon.svg'
 function LandingPage() {
     return(
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: 20, flexWrap: 'wrap', gap: 5}}>
-            
             <Box component="img" 
             sx={{
                 height: '30rem',

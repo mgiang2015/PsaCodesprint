@@ -11,8 +11,8 @@ export default function OperatorContainer(props) {
 	];
 
 	return (
-		<Box sx={{display: "flex", flexDirection: "row", justifyContent: "flex-start", height: "100rem"}}>
-			<Sidebar options={sidebarOptions} />
+		<Box sx={{display: "flex", flexDirection: "row", justifyContent: "flex-start"}}>
+			<Sidebar options={sidebarOptions}/>
 			<Box sx={{paddingTop: "4rem", paddingLeft: "2rem", minWidth: "50%"}}>
 				<Typography variant="h3">{props.title}</Typography>
 				{props.children}

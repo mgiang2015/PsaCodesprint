@@ -48,7 +48,7 @@ export default function OperatorDashboard() {
 	const headings2 = ["Operators", "Sending Volume", "Receiving Volume", "Total"];
 
 	return (
-		<OperatorContainer title={"Welcome back, Operator Dani!"}>
+		<OperatorContainer title={"Welcome back, Operator Dani!"} sx={{backgroundColor: "red"}}>
 			<Box sx={{ padding: "4rem" }}>
 				<InfoTable title={title1} headings={headings1} datasets={schedules} />
 			</Box>
