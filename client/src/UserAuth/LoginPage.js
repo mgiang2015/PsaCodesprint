@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { Paper, TextField, Button, Container, Box, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Logo } from "../assets/exportLogo";
@@ -56,7 +57,7 @@ export default function LoginPage() {
                     <Divider style={{width:'100%'}}>or</Divider>
 
                     <PaddingY padding={2} />
-                    <Button variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}} href="/signup">Sign Up</Button>
+                    <Button component={Link} variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}} to="/signup">Sign Up</Button>
                 </Paper>
             </form>
         </Container>

@@ -1,4 +1,5 @@
 import { Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import UndrawIcon from '../assets/UndrawIcon.svg'
 
 function LandingPage() {
@@ -17,7 +18,7 @@ function LandingPage() {
                 <h1 style={{fontSize: "80px", margin: "0", display: 'inline', color: '#F3722C'}}>NextTruck</h1>
                 <br />
                 <p style={{maxWidth: "40rem", lineHeight: '2rem'}}>Increase your Container Freight Station efficiency by reducing LCL cargo through our all-in-one management platform</p>
-                <Button sx={{px: 5, py: 1,fontWeight: 600, mr: 3, textTransform: 'none', backgroundColor: "#F3722C", "&:hover": { backgroundColor: "#E8671B" }}} variant="contained" disableElevation href="/signup">Register Now</Button>
+                <Button component={Link} sx={{px: 5, py: 1,fontWeight: 600, mr: 3, textTransform: 'none', backgroundColor: "#F3722C", "&:hover": { backgroundColor: "#E8671B" }}} variant="contained" disableElevation to="/signup">Register Now</Button>
             </Box>
             
         </Box>

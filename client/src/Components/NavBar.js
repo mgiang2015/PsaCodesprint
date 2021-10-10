@@ -1,4 +1,5 @@
 import { Box, Toolbar, AppBar, Button, IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { Container } from '@mui/material';
 import logo from '../assets/logoWithText.svg';
 
@@ -7,7 +8,7 @@ function NavBar() {
         <AppBar position="static" style={{ background: '#FFF', height: "10vh" }}>
             <Container sx={{height: "100%" }}>
                 <Toolbar sx={{display: "flex", alignItems: 'center', height: "100%" }}>
-                    <IconButton edge="start" sx={{ "&:hover": { backgroundColor: "transparent" } }} href="/" disableRipple>
+                    <IconButton component={Link} edge="start" sx={{ "&:hover": { backgroundColor: "transparent" } }} to="/" disableRipple>
                         <Box component="img" 
                                 sx={{
                                     height: '6vh'
@@ -17,8 +18,8 @@ function NavBar() {
                     </IconButton>
                     <Box sx={{flex: 1}} />
                     <Box>
-                        <Button sx={{width: 100, fontWeight: 500, mr: 3, textTransform: 'none'}} variant="outlined" disableElevation href="/login">Login</Button>
-                        <Button sx={{width: 100, textTransform: 'none' }} variant="contained" disableElevation href="/signup">Sign Up</Button>
+                        <Button component={Link} sx={{width: 100, fontWeight: 500, mr: 3, textTransform: 'none'}} variant="outlined" disableElevation to="/login">Login</Button>
+                        <Button component={Link} sx={{width: 100, textTransform: 'none' }} variant="contained" disableElevation to="/signup">Sign Up</Button>
                     </Box>
                 </Toolbar>
             </Container>
