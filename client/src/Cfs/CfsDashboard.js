@@ -44,15 +44,14 @@ export default function OperatorDashboard() {
 	const title1 = "Schedule";
 	const headings1 = ["Delivery Truck", "Deliver By", "Origin Port", "Destination Port"];
 
-	const title2 = "Operators";
-	const headings2 = ["Username", "Id", "Details"];
+	// const title2 = "Operators";
+	// const headings2 = ["Username", "Id", "Details"];
 
 	return (
 		<CfsContainer>
 			<Box sx={{ padding: "4rem" }}>
 				<Typography variant="h2">Dashboard</Typography>
 				<InfoTable title={title1} headings={headings1} datasets={schedules} />
-				<InfoTable title={title2} headings={headings2} datasets={operators} />
 			</Box>
 		</CfsContainer>
 	)
