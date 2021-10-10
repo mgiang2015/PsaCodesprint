@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import LandingPage from './pages/LandingPage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -11,6 +12,9 @@ import CfsDashboard from './Cfs/CfsDashboard';
 import CfsOperatorForm from './Cfs/CfsOperatorForm';
 import OperatorForm from './Operator/OperatorForm';
 import OperatorTruckForm from './Operator/OperatorTruckForm';
+
+axios.defaults.baseURL =
+    process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
 
 function App() {
     return (
