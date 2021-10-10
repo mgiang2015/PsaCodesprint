@@ -149,9 +149,10 @@ export const loginCFSAdmin = (req, res, next) => {
         res.json({
             success: true,
             message: 'You are successfully logged in!',
-            username: cfsAdmin.username,
-            userId: cfsAdmin._id,
-            userType: 'cfsAdmin',
+            userProfile: cfsAdmin,
+            // username: cfsAdmin.username,
+            // userId: cfsAdmin._id,
+            userType: 'cfsAdmins',
             errors: {}
         });
     });
