@@ -37,4 +37,4 @@ for (var k = 0; k < numNodes; k++) {
     }
 }
 
-export {apsp, depot};
+export { apsp, depot };

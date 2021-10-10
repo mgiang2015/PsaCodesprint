@@ -24,8 +24,8 @@ function sortDeliveries(deliveries) {
 
 class Container {
     constructor(code) {
-        this.contents = [],
-            this.code = code
+        this.contents = []
+        this.code = code
     }
 
     add(delivery) {
@@ -144,34 +144,9 @@ function orderToDelivery(orders) {
             deliveries.push(new Delivery(o.origin, o.dest, 10))
             o.pallets -= 10
         }
-        deliveries.push(o)
+        deliveries.push(new Delivery(o.origin, o.dest, o.pallets))
     }
     return deliveries
 }
 
-let orders = [
-    new Order('a', 'b', 15),
-    new Order('a', 'b', 12),
-    new Order('a', 'b', 8),
-    new Order('a', 'b', 2),
-    new Order('a', 'b', 3),
-]
-
-// Tests
-let deliveries = [
-    new Delivery('a', 'b', 10),
-    new Delivery('a', 'b', 8),
-    new Delivery('a', 'b', 5),
-    new Delivery('a', 'b', 10),
-    new Delivery('a', 'b', 2),
-    new Delivery('a', 'b', 2),
-    new Delivery('a', 'b', 3)
-]
-
-// deliveries = orderToDelivery(orders)
-
-// import util from 'util'
-// let containers = containerize(deliveries);
-// console.log(util.inspect(containers, {showHidden: false, depth: null, colors: true}))
-
-export {Delivery, containerize, deliveries}
+export { Delivery, Order, orderToDelivery, containerize }
