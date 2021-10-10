@@ -170,6 +170,8 @@ let deliveries = [
 
 // deliveries = orderToDelivery(orders)
 
-import util from 'util'
-let containers = containerize(deliveries);
-console.log(util.inspect(containers, {showHidden: false, depth: null, colors: true}))
+// import util from 'util'
+// let containers = containerize(deliveries);
+// console.log(util.inspect(containers, {showHidden: false, depth: null, colors: true}))
+
+export {Delivery, containerize, deliveries}
