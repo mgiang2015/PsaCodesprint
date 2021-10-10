@@ -47,8 +47,13 @@ export async function registerOperator(req, res, next) {
                                 errors: err
                             });
                         } else {
-                            // Adds email and isAdmin status to the operator object
-                            // operator.isAdmin = req.body.isAdmin;
+                            if (req.body.name) {
+                                operator.name = req.body.name;
+                            }
+
+                            if (req.body.details) {
+                                operator.details = req.body.details;
+                            }
 
                             if (req.body.cfsAdmin) {
                                 try {

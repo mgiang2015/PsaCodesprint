@@ -16,6 +16,7 @@ import warehouseRouter from './routes/warehouseRouter';
 import cfsAdminRouter from './routes/cfsAdminRouter';
 import requestRouter from './routes/requestRouter';
 import operatorRouter from './routes/operatorRouter';
+import scheduleRouter from './routes/scheduleRouter';
 
 import passport from 'passport';
 const __dirname = path.resolve();
@@ -59,6 +60,7 @@ app.use('/api/warehouses', warehouseRouter);
 app.use('/api/cfsAdmins', cfsAdminRouter);
 app.use('/api/operators', operatorRouter);
 app.use('/api/requests', requestRouter);
+app.use('/api/schedules', scheduleRouter);
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {
