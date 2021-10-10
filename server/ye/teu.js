@@ -22,10 +22,12 @@ function sortDeliveries(deliveries) {
     return commonDestMap;
 }
 
+// Container codes count up from here:
+var containerSerials = 1000;
 class Container {
-    constructor(code) {
+    constructor() {
         this.contents = []
-        this.code = code
+        this.code = containerSerials++
     }
 
     add(delivery) {

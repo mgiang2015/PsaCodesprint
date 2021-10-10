@@ -24,7 +24,9 @@ function getReceipts(trucks, receiverNum) {
             deliveries.forEach(d => {
                 receipts.push({
                     delivery: d,
-                    receiveTime: sr.deliveryTime
+                    receiveTime: sr.deliveryTime,
+                    containerCode: container.code,
+                    truckNumber: t.plateNumber
                 })
             })
         })
@@ -44,7 +46,9 @@ function getSends(trucks, senderNum) {
                 let loadingTime = sr.startTime + route.timeArriveAt(senderNum)
                 receipts.push({
                     delivery: d,
-                    loadingTime: loadingTime
+                    loadingTime: loadingTime,
+                    containerCode: container.code,
+                    truckNumber: t.plateNumber
                 })
             })
         })
