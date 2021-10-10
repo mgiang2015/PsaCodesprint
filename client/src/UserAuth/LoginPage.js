@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
@@ -30,7 +30,20 @@ function LoginPage(props) {
         }
     });
 
+    useEffect(() => {
+        if (props.error.login) {
+            setUserInput({ ...userInput, errors: props.error.register });
+        }
+    }, [props.error.login]);
+
+    useEffect(() => {
+        if (props.auth.isAuthenticated) {
+            props.history.push('/dashboard');
+        }
+    }, [props.auth.isAuthenticated]);
+
     const { register, handleSubmit } = useForm();
+
     const onSubmit = function (data) {
         setUserInput({
             ...userInput,
@@ -47,6 +60,8 @@ function LoginPage(props) {
     const handleChange = function (data) {
         setUserType(data.target.value);
     };
+
+    const { errors } = userInput;
 
     return (
         <Container
@@ -83,12 +98,16 @@ function LoginPage(props) {
                         <TextField
                             label="Username"
                             variant="outlined"
+                            error={errors.username}
+                            helperText={errors.username}
                             {...register('username')}
                         />
                         <TextField
                             label="Password"
                             variant="outlined"
                             type="password"
+                            error={errors.password}
+                            helperText={errors.password}
                             {...register('password')}
                         />
                         <FormControl fullWidth variant="standard">

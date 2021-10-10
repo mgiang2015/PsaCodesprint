@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
@@ -18,19 +18,53 @@ import {
 import { Logo } from '../assets/exportLogo';
 import { PaddingY } from '../Utils/Padding';
 
-function SignupPage() {
+function SignupPage(props) {
     const [userType, setUserType] = useState('operators');
 
     const { register, handleSubmit } = useForm();
 
+    const [userInput, setUserInput] = useState({
+        username: '',
+        password: '',
+        password2: '',
+        errors: {
+            username: '',
+            password: '',
+            password2: '',
+            message: ''
+        }
+    });
+
+    useEffect(() => {
+        if (props.error.register) {
+            setUserInput({ ...userInput, errors: props.error.register });
+        }
+    }, [props.error.register]);
+
+    useEffect(() => {
+        if (props.auth.isAuthenticated) {
+            props.history.push('/dashboard');
+        }
+    }, [props.auth.isAuthenticated]);
+
     const onSubmit = function (data) {
-        data['userType'] = userType;
+        setUserInput({
+            ...userInput,
+            username: data['username'],
+            password: data['password'],
+            password2: data['password2']
+        });
+
         console.log(data);
+
+        props.registerUser(data, props.history, userType);
     };
 
     const handleChange = function (data) {
         setUserType(data.target.value);
     };
+
+    const { errors } = userInput;
 
     return (
         <Container
@@ -67,18 +101,24 @@ function SignupPage() {
                         <TextField
                             label="Username"
                             variant="outlined"
+                            error={errors.username}
+                            helperText={errors.username}
                             {...register('username')}
                         />
                         <TextField
                             label="Password"
                             variant="outlined"
                             type="password"
+                            error={errors.password}
+                            helperText={errors.password}
                             {...register('password')}
                         />
                         <TextField
                             label="Confirm Password"
                             variant="outlined"
                             type="password"
+                            error={errors.password2}
+                            helperText={errors.password2}
                             {...register('password2')}
                         />
                         <FormControl fullWidth variant="standard">
