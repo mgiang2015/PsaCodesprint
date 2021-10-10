@@ -18,7 +18,7 @@ export default function LoginPage() {
     }
 
 	return (
-        <Container sx={{height: "90vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex"}}>
+        <Container sx={{display: "flex", height: "80vh", width: "100%", alignItems:"center", justifyContent: "center", my: '5vh'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Paper elevation={12}
                     sx={{ display: 'flex',

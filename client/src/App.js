@@ -11,12 +11,14 @@ import CfsDashboard from './Cfs/CfsDashboard';
 import CfsOperatorForm from './Cfs/CfsOperatorForm';
 import OperatorForm from './Operator/OperatorForm';
 import OperatorTruckForm from './Operator/OperatorTruckForm';
+import { PaddingY } from './Utils/Padding';
 
 function App() {
     return (
         <Provider store={store}>
             <div>
                 <NavBar/>
+                <PaddingY padding={'5vh'} />
                 <Switch>
                     <Route exact path="/">
                         <LandingPage />

@@ -1,10 +1,10 @@
 import { Box, Toolbar, AppBar, Button, IconButton } from '@mui/material';
 import { Container } from '@mui/material';
 import logo from '../assets/logoWithText.svg';
-
+    
 function NavBar() {
 	return (
-        <AppBar position="static" style={{ background: '#FFF', height: "10vh" }}>
+        <AppBar position="absolute" style={{ background: '#FFF', height: "10vh", zIndex: 100000000 }}>
             <Container sx={{height: "100%" }}>
                 <Toolbar sx={{display: "flex", alignItems: 'center', height: "100%"}}>
                     <IconButton edge="start" sx={{ "&:hover": { backgroundColor: "transparent" } }} href="/" disableRipple>

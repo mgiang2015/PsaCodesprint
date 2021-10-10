@@ -16,7 +16,7 @@ export default function SignupPage() {
     }
 
 	return (
-        <Container sx={{height: "90vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex"}}>
+        <Container sx={{height: "80vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex", my: '5vh'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Paper elevation={12}
                     sx={{ display: 'flex',
