@@ -70,7 +70,7 @@ export default function OperatorForm() {
 					<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'space-between', justifyContent: "flex-start", width: "100%" }}>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>CfsAdmin</InputLabel>
-							<TextField sx={{ minWidth: 1/3 }} defaultValue="6161dfaf3a6c3f8d27ca2864" disabled variant="outlined" {...register("cfsAdmin")} />
+							<TextField sx={{ minWidth: 1/3 }} defaultValue="6161dfaf3a6c3f8d27ca2864" variant="outlined" {...register("cfsAdmin")} />
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>Operator</InputLabel>
