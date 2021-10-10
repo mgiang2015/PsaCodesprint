@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form"
+import Datetime from 'react-datetime';
 import OperatorContainer from "./OperatorContainer";
 import { Box, Select, MenuItem, InputLabel, TextField, Button, Typography, Modal, Alert } from '@mui/material';
 
@@ -13,22 +14,32 @@ export default function OperatorForm() {
   const handleClose = () => setOpen(false);
 
   const warehouseOptions = [
-  	{value: "a", label: "A"},
-  	{value: "b", label: "B"},
-  	{value: "c", label: "C"},
-  	{value: "d", label: "D"},
-  	{value: "e", label: "E"},
-  	{value: "f", label: "F"}
+  	{value: "6161ee0f3a6c3f8d27ca287f", label: "A"},
+  	{value: "6161ee163a6c3f8d27ca2883", label: "B"},
+  	{value: "6161ee513a6c3f8d27ca288b", label: "C"},
+  	{value: "6161ee553a6c3f8d27ca288f", label: "D"}
   ];
 
 	const { register, handleSubmit } = useForm();
 	const onSubmit = function(data) {
 		console.log(data);
 
+		const sendData = {	
+			startTime: new Date(data.date + " " + data.startTime),
+			endTime: new Date(data.date + " " + data.endTime),
+			origin: data.origin, // need ID
+			destination: data.destination, // need ID
+			load: data.load,
+			operator: data.operator, // need ID
+			cfsAdmin: data.cfsAdmin // need ID	
+		};
+
+		console.log(sendData);
+
 		const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify(data)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sendData)
     };
 
     fetch('/api/requests', requestOptions)
@@ -53,11 +64,15 @@ export default function OperatorForm() {
 					<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'space-between', justifyContent: "flex-start", width: "100%" }}>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>CfsAdmin</InputLabel>
-							<TextField sx={{ minWidth: 1/3 }} value="Central Admin" disabled variant="outlined" {...register("cfsAdmin")} />
+							<TextField sx={{ minWidth: 1/3 }} defaultValue="6161dfaf3a6c3f8d27ca2864" disabled variant="outlined" {...register("cfsAdmin")} />
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>Operator</InputLabel>
-							<TextField sx={{ minWidth: 1/3 }} value="A" disabled variant="outlined" {...register("operator")} />
+							<TextField sx={{ minWidth: 1/3 }} defaultValue="6161e0133a6c3f8d27ca286a" disabled variant="outlined" {...register("operator")} />
+						</Box>
+						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
+							<InputLabel>Date</InputLabel>
+							<TextField sx={{ minWidth: 1/3 }} type="date" variant="outlined" {...register("date")} />
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>Cargo Size </InputLabel>
