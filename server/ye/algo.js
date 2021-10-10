@@ -13,4 +13,42 @@ function createTrucks(orders) {
     return trucks;
 }
 
-export {createTrucks}
+function getReceipts(trucks, receiverNum) {
+    let receipts = []
+    trucks.forEach(t => {
+        t.schedule.forEach(sr => {
+            let route = sr.route;
+            let container = route.container
+            let deliveries = container.contents
+            deliveries = deliveries.filter(d => receiverNum == d.dest)
+            deliveries.forEach(d => {
+                receipts.push({
+                    delivery: d,
+                    receiveTime: sr.deliveryTime
+                })
+            })
+        })
+    })
+    return receipts
+}
+
+function getSends(trucks, senderNum) {
+    let receipts = []
+    trucks.forEach(t => {
+        t.schedule.forEach(sr => {
+            let route = sr.route;
+            let container = route.container
+            let deliveries = container.contents
+            deliveries = deliveries.filter(d => senderNum == d.origin)
+            deliveries.forEach(d => {
+                receipts.push({
+                    delivery: d,
+                    receiveTime: sr.deliveryTime
+                })
+            })
+        })
+    })
+    return receipts
+}
+
+export {createTrucks, getReceipts, getSends}
