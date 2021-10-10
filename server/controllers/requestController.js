@@ -5,6 +5,9 @@ import { Request } from '../models/request';
 import { CFSAdmin } from '../models/cfsAdmin';
 import { Operator } from '../models/operator';
 import { Schedule } from '../models/schedule';
+import { createTrucks } from '../ye/algo';
+import { Order } from '../ye/teu';
+import { Truck } from '../ye/scheduling';
 
 const { Types } = mongoose;
 
@@ -50,7 +53,44 @@ export async function postRequest(req, res) {
         const request = await newRequest.save();
 
         // Call the algo
-        const newSchedules = []; // replace with algo result
+        const requests = await Request.find({}).populate('origin destination');
+        console.log(requests);
+        const orders = [];
+
+        for (let i = 0; i < requests.length; i++) {
+            const requ = await Request.findById(requests[i]._id).populate(
+                'origin destination'
+            );
+
+            console.log(requ);
+            orders.push(
+                new Order(
+                    requ.origin.customId,
+                    requ.destination.customId,
+                    requ.load,
+                    requ._id
+                )
+            );
+        }
+
+        // const orders = requests.map((requ) => {
+        //     console.log(requ);
+        //     return new Order(
+        //         // requ.origin.customId,
+        //         requ.destination.customId,
+        //         requ.load,
+        //         requ._id
+        //     );
+        // });
+
+        const newSchedules = createTrucks(orders);
+
+        const padded = newSchedules.map(async (sch) => {
+            const truck = await Truck.find({ licensePlate: sch.assignedTruck });
+            sch.assignedTruck = truck._id;
+        });
+
+        // const newSchedules = []; // replace with algo result
 
         // If algo no error, delete the current schedule for the date and cfsAdmin
         // await Schedule.deleteMany({
@@ -58,8 +98,10 @@ export async function postRequest(req, res) {
         //     deliveredBy: { $gte: newDate(request.endTime) }
         // });
 
+        await Schedule.deleteMany({});
+
         // Insert new schedules into db
-        // await Schedule.insertMany(newSchedules);
+        await Schedule.insertMany(padded);
 
         // Update CFS Admin and operator with request
         await CFSAdmin.findByIdAndUpdate(req.body.cfsAdmin, {
