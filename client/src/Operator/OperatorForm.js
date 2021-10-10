@@ -14,10 +14,16 @@ export default function OperatorForm() {
   const handleClose = () => setOpen(false);
 
   const warehouseOptions = [
-  	{value: "6161ee0f3a6c3f8d27ca287f", label: "A"},
-  	{value: "6161ee163a6c3f8d27ca2883", label: "B"},
-  	{value: "6161ee513a6c3f8d27ca288b", label: "C"},
-  	{value: "6161ee553a6c3f8d27ca288f", label: "D"}
+  	{value: "6161ee0f3a6c3f8d27ca287f", label: "513-107"},
+  	{value: "6161ee163a6c3f8d27ca2883", label: "513-108"},
+  	{value: "6161ee513a6c3f8d27ca288b", label: "510-128"},
+  	{value: "6161ee553a6c3f8d27ca288f", label: "510-129"}
+  ];
+
+  const operatorOptions = [
+  	{value: "6161e0133a6c3f8d27ca286a", label: "Operator A"},
+  	{value: "6161e02c3a6c3f8d27ca2871", label: "Operator B"},
+  	{value: "6162bbfec7f038a8b14d4a66", label: "Operator Test"}
   ];
 
 	const { register, handleSubmit } = useForm();
@@ -68,7 +74,9 @@ export default function OperatorForm() {
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>Operator</InputLabel>
-							<TextField sx={{ minWidth: 1/3 }} defaultValue="6161e0133a6c3f8d27ca286a" disabled variant="outlined" {...register("operator")} />
+							<Select defaultValue="" label="Select an Operator" sx={{ minWidth: 1/3 }} variant="outlined" {...register("operator")} >
+								{operatorOptions.map(option => (<MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>))}
+							</Select>
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>Date</InputLabel>
