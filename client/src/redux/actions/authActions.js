@@ -35,7 +35,11 @@ export const loginUser = (userData, history, userType) => (dispatch) => {
             dispatch(setUserProfile(userProfile, userType));
 
             dispatch(setUserLoading(false));
-            history.push('/dashboard');
+            if (userType == 'operators') {
+                history.push('/operator');
+            } else {
+                history.push('/cfs');
+            }
         })
         .catch((err) => {
             // End of request
