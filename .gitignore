@@ -3,12 +3,5 @@
 /client/node_modules
 /server/node_modules
 
-# env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
 # devcontainer files
 /.devcontainer
