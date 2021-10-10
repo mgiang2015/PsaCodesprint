@@ -16,14 +16,14 @@ export default function SignupPage() {
     }
 
 	return (
-        <Container sx={{maxHeight: "90vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex"}}>
+        <Container sx={{height: "90vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex", backgroundColor: "red"}}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Paper elevation={12}
                     sx={{ display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        px: 6,
-                        py: 6,
+                        px: '6vh',
+                        py: '6vh',
                         borderRadius: 2
                     }}>
                     <Logo height={100}/>
