@@ -57,7 +57,7 @@ export default function LoginPage() {
                     <Divider style={{width:'100%'}}>or</Divider>
 
                     <PaddingY padding={2} />
-                    <Button component={Link} variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}} to="/signup">Sign Up</Button>
+                    <Button component={Link} variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none', width: '100%'}} to="/operator">Sign Up</Button>
                 </Paper>
             </form>
         </Container>
