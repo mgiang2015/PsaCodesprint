@@ -56,4 +56,26 @@ function getSends(trucks, senderNum) {
     return receipts
 }
 
-export {createTrucks, getReceipts, getSends}
+function getAllStops(trucks) {
+    let stops = []
+    trucks.forEach(t => {
+        t.schedule.forEach(sr => {
+            let route = sr.route;
+            let path = route.path
+            let container = route.container
+            for (var i = 0; i < path.length - 1; i++) {
+                stops.push({
+                    deliverAt: sr.startTime + route.timeArriveAt(path[i]) + 30,
+                    deliverBy: sr.startTime + route.timeArriveAt(path[i + 1]),
+                    assignedTruck: t.plateNumber,
+                    origin: path[i],
+                    destination: path[i + 1],
+                    load: 0
+                })
+            }
+        })
+    })
+    return stops
+}
+
+export {createTrucks, getReceipts, getSends, getAllStops}
