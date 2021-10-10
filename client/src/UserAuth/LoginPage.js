@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
-import { Paper, TextField, Button, Container, Box, Divider } from '@mui/material';
+import { Paper, TextField, Button, Container, Box, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Logo } from "../assets/exportLogo";
 import { PaddingY } from "../Utils/Padding";
 export default function LoginPage() {
 	const { register, handleSubmit } = useForm();
 	const onSubmit = function(data) {
 		// specify action later
+        data["userType"] = userType;
 		console.log(data);
 	}
+
+    const [userType, setUserType] = useState("");
+    const handleChange = function(data) {
+        setUserType(data.target.value);
+    }
 
 	return (
         <Container sx={{height: "80vh", width: "100%", alignItems:"center", justifyContent: "center", display: "flex"}}>
@@ -26,6 +32,20 @@ export default function LoginPage() {
                     <Box sx={{flexDirection: 'column',display: 'flex', gap: 2, width: "40vh"}}>
                         <TextField label="Username" variant="outlined" {...register("Username")} />
                         <TextField label="Password" variant="outlined" type="password" {...register("Password")} />
+                        <FormControl fullWidth variant="standard" >
+                            <InputLabel id="demo-simple-select-label">User Type </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={userType}
+                                label="User Type"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={"operators"}>Operator</MenuItem>
+                                <MenuItem value={"cfsAdmins"}>CFS Admin</MenuItem>
+                            </Select>
+                        </FormControl>
+
                     </Box>
                     <PaddingY padding={1.5} />
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', width: "100%"}}>
