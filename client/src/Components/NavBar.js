@@ -1,6 +1,7 @@
 import { Box, Toolbar, AppBar, Button, IconButton } from '@mui/material';
 import { Container } from '@mui/material';
 import logo from '../assets/logoWithText.svg';
+import { PaddingY } from '../Utils/Padding';
 
 function NavBar() {
 	return (
