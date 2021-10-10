@@ -40,6 +40,7 @@ function LoginPage(props) {
 
     useEffect(() => {
         if (props.auth.isAuthenticated) {
+            console.log(props)
             props.history.push('/dashboard');
         }
     }, [props.auth.isAuthenticated]);
