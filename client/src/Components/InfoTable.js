@@ -12,7 +12,7 @@ export default function InfoTable({ title, headings , datasets }) {
         </TableHead>
         <TableBody>
         	{ datasets.map((dataset) => (
-        		<TableRow key={dataset[0]} >
+        		<TableRow key={dataset} >
         			{dataset.map((data) => (
         				<TableCell align="left" key={data}>
         					{data}
