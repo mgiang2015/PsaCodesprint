@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd server && npm install && node --experimental-modules --es-module-specifier-resolution=node app.js && cd ../",
+    "start": "cd server && npm install && cd .. && node --experimental-modules --es-module-specifier-resolution=node server/app.js",
     "build": "cd client && npm install && npm run build"
   },
   "repository": {
