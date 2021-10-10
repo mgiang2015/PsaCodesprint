@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import { Paper, TextField, Button, Container, Box, Divider } from '@mui/material';
 import { Logo } from "../assets/exportLogo";
@@ -31,7 +31,7 @@ export default function SignupPage() {
                     </Box>
                     <PaddingY padding={1.5} />
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', width: "100%"}}>
-                        <Button size="large" variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none'}}>Sign Up</Button>
+                        <Button size="large" variant="contained" sx={{display: 'flex', px: 5, textTransform: 'none'}} type="submit">Sign Up</Button>
                     </Box>
                     <PaddingY padding={2} />
 
