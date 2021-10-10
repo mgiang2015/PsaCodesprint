@@ -53,18 +53,31 @@ export async function postRequest(req, res) {
         const request = await newRequest.save();
 
         // Call the algo
-        const requests = await Request.find({})
-            // console.log(requests);
-            .populate('origin destination');
+        const requests = await Request.find({}).populate('origin destination');
+        console.log(requests);
+        const orders = [];
 
-        const orders = requests.map((requ) => {
-            return new Order(
-                requ.origin.customId,
-                requ.destination.customId,
-                requ.load,
-                requ._id
+        for (let i = 0; i < requests.length; i++) {
+            console.log(requests[i]);
+            orders.push(
+                new Order(
+                    requests[i].origin.customId,
+                    requests[i].destination.customId,
+                    requests[i].load,
+                    requests[i]._id
+                )
             );
-        });
+        }
+
+        // const orders = requests.map((requ) => {
+        //     console.log(requ);
+        //     return new Order(
+        //         // requ.origin.customId,
+        //         requ.destination.customId,
+        //         requ.load,
+        //         requ._id
+        //     );
+        // });
 
         const newSchedules = createTrucks(orders);
 
