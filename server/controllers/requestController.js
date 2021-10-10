@@ -58,13 +58,17 @@ export async function postRequest(req, res) {
         const orders = [];
 
         for (let i = 0; i < requests.length; i++) {
-            console.log(requests[i]);
+            const requ = await Request.findById(requests[i]._id).populate(
+                'origin destination'
+            );
+
+            console.log(requ);
             orders.push(
                 new Order(
-                    requests[i].origin.customId,
-                    requests[i].destination.customId,
-                    requests[i].load,
-                    requests[i]._id
+                    requ.origin.customId,
+                    requ.destination.customId,
+                    requ.load,
+                    requ._id
                 )
             );
         }
