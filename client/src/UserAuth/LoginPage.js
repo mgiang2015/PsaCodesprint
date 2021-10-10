@@ -51,8 +51,6 @@ function LoginPage(props) {
             password: data['password']
         });
 
-        // specify action later
-        // data['userType'] = userType;
         console.log(data);
         props.loginUser(data, props.history, userType);
     };
