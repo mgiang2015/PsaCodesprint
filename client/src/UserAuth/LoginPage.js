@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/actions/authActions';
@@ -13,10 +13,12 @@ import {
     FormControl,
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    FormHelperText
 } from '@mui/material';
 import { Logo } from '../assets/exportLogo';
 import { PaddingY } from '../Utils/Padding';
+import isEmpty from 'is-empty';
 
 function LoginPage(props) {
     const [userType, setUserType] = useState('operators');
@@ -32,7 +34,7 @@ function LoginPage(props) {
 
     useEffect(() => {
         if (props.error.login) {
-            setUserInput({ ...userInput, errors: props.error.register });
+            setUserInput({ ...userInput, errors: props.error.login });
         }
     }, [props.error.login]);
 
@@ -51,7 +53,6 @@ function LoginPage(props) {
             password: data['password']
         });
 
-        console.log(data);
         props.loginUser(data, props.history, userType);
     };
 
@@ -78,8 +79,8 @@ function LoginPage(props) {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        px: 6,
-                        py: 6,
+                        px: '6vh',
+                        py: '6vh',
                         borderRadius: 2
                     }}
                 >
@@ -108,6 +109,9 @@ function LoginPage(props) {
                             helperText={errors.password}
                             {...register('password')}
                         />
+                        <FormHelperText error={!isEmpty(errors.message)}>
+                            {errors.message}
+                        </FormHelperText>
                         <FormControl fullWidth variant="standard">
                             <InputLabel id="demo-simple-select-label">
                                 User Type{' '}
@@ -155,6 +159,7 @@ function LoginPage(props) {
 
                     <PaddingY padding={2} />
                     <Button
+                        component={Link}
                         variant="contained"
                         sx={{
                             display: 'flex',
@@ -162,7 +167,7 @@ function LoginPage(props) {
                             textTransform: 'none',
                             width: '100%'
                         }}
-                        href="/signup"
+                        to="/signup"
                     >
                         Sign Up
                     </Button>

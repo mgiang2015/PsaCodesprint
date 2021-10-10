@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { registerUser } from '../redux/actions/authActions';
@@ -13,7 +13,8 @@ import {
     FormControl,
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    FormHelperText
 } from '@mui/material';
 import { Logo } from '../assets/exportLogo';
 import { PaddingY } from '../Utils/Padding';
@@ -83,8 +84,8 @@ function SignupPage(props) {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        px: 6,
-                        py: 6,
+                        px: '6vh',
+                        py: '6vh',
                         borderRadius: 2
                     }}
                 >
@@ -121,6 +122,9 @@ function SignupPage(props) {
                             helperText={errors.password2}
                             {...register('password2')}
                         />
+                        <FormHelperText error={errors.message}>
+                            {errors.message}
+                        </FormHelperText>
                         <FormControl fullWidth variant="standard">
                             <InputLabel id="demo-simple-select-label">
                                 User Type{' '}
@@ -166,6 +170,7 @@ function SignupPage(props) {
                     <Divider style={{ width: '100%' }}>or</Divider>
                     <PaddingY padding={2} />
                     <Button
+                        component={Link}
                         variant="contained"
                         sx={{
                             display: 'flex',
@@ -173,7 +178,7 @@ function SignupPage(props) {
                             textTransform: 'none',
                             width: '100%'
                         }}
-                        href="/login"
+                        to="/login"
                     >
                         Login
                     </Button>

@@ -1,27 +1,27 @@
 import { Box, Toolbar, AppBar, Button, IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { Container } from '@mui/material';
 import logo from '../assets/logoWithText.svg';
-import { PaddingY } from '../Utils/Padding';
 
 function NavBar() {
 	return (
         <AppBar position="static" style={{ background: '#FFF', height: "10vh" }}>
-            <Container maxWidth="xxl">
-            <Toolbar>
-                <IconButton edge="start" sx={{ ml: 20, my: 1, "&:hover": { backgroundColor: "transparent" } }} href="/" disableRipple>
-                    <Box component="img" 
-                            sx={{
-                                height: '4rem'
-                            }}
-                            src={logo}
-                        />
-                </IconButton>
-                <Box sx={{flex: 1}} />
-                <Box sx={{mr: 20}}>
-                    <Button sx={{width: 100, fontWeight: 500, mr: 3, textTransform: 'none'}} variant="outlined" disableElevation href="/login">Login</Button>
-                    <Button sx={{width: 100, textTransform: 'none' }} variant="contained" disableElevation href="/signup">Sign Up</Button>
-                </Box>
-            </Toolbar>
+            <Container sx={{height: "100%" }}>
+                <Toolbar sx={{display: "flex", alignItems: 'center', height: "100%" }}>
+                    <IconButton component={Link} edge="start" sx={{ "&:hover": { backgroundColor: "transparent" } }} to="/" disableRipple>
+                        <Box component="img" 
+                                sx={{
+                                    height: '6vh'
+                                }}
+                                src={logo}
+                            />
+                    </IconButton>
+                    <Box sx={{flex: 1}} />
+                    <Box>
+                        <Button component={Link} sx={{width: 100, fontWeight: 500, mr: 3, textTransform: 'none'}} variant="outlined" disableElevation to="/login">Login</Button>
+                        <Button component={Link} sx={{width: 100, textTransform: 'none' }} variant="contained" disableElevation to="/signup">Sign Up</Button>
+                    </Box>
+                </Toolbar>
             </Container>
         </AppBar>
 	)
