@@ -19,7 +19,7 @@ export default function Sidebar({ options }) {
                         <MenuList sx={{ height: "100%", paddingY:  0}}>
                             <PaddingY padding={"8vh"} />
                         {options.map((option) => (
-                            <MenuItem sx={{paddingBottom: 0}}>
+                            <MenuItem sx={{paddingBottom: 0}} key={option}>
                                 <Link style={{ textDecoration: "none", color: "#FFFFFF", fontFamily: "Montserrat" }} to={option[1]}>{option[0]}</Link>
                                 <PaddingY padding={3}/>
                             </MenuItem>

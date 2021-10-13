@@ -62,7 +62,6 @@ export default function OperatorForm() {
     	})
     handleOpen();
 	}
-
 	return (
 		<OperatorContainer title={"Add A Delivery Order"}>
 			<Box sx={{ margin: "4rem", width: "100%" }}>
@@ -74,7 +73,7 @@ export default function OperatorForm() {
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: "1rem"}}>
 							<InputLabel>Operator</InputLabel>
-							<Select defaultValue="" label="Select an Operator" sx={{ minWidth: 1/3 }} variant="outlined" {...register("operator")} >
+							<Select sx={{ minWidth: 1/3 }} label="Operator" variant="outlined" {...register("operator")} >
 								{operatorOptions.map(option => (<MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>))}
 							</Select>
 						</Box>

@@ -35,7 +35,7 @@ class Route {
 
         let [dist, path] = shortestPath(depot, this.dest, this.pickups)
         // find time from depot to delivery point
-        this.depotToDeliveryTime = dist + path.length * loadTime
+        this.depotToDeliveryTime = dist + (path.length - 1) * loadTime
 
         // add on the return to depot
         dist += apsp[this.dest][depot]
@@ -43,6 +43,17 @@ class Route {
         this.dist = dist
         this.path = path
         this.duration = dist + path.length * loadTime
+    }
+
+    timeArriveAt(nodeNum) {
+        let path = this.path
+        let time = 0;
+        for (var i = 0; i < this.path.length; i++) {
+            if (i > 0) time += apsp[path[i - 1]][path[i]]
+            if (path[i] == nodeNum) break;
+            time += loadTime;
+        }
+        return time;
     }
 }
 

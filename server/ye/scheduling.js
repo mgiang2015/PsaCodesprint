@@ -12,11 +12,13 @@ class ScheduledRoute {
     }
 }
 
+// Truck numbers count up from here:
+var truckSerials = 100;
 class Truck {
     // availTime = minutes since starting time where it is available
-    constructor(plateNumber) {
+    constructor() {
         this.schedule = []
-        this.plateNumber = plateNumber
+        this.plateNumber = truckSerials++
         this.availTime = 0
     }
 

@@ -13,13 +13,13 @@ const requestSchema = new mongoose.Schema(
         },
         origin: {
             type: Schema.Types.ObjectId,
-            ref: 'Warehouse',
-            required: true
+            ref: 'Warehouse'
+            // required: true
         },
         destination: {
             type: Schema.Types.ObjectId,
-            ref: 'Warehouse',
-            required: true
+            ref: 'Warehouse'
+            // required: true
         },
         load: {
             type: Number,

@@ -7,7 +7,6 @@ export default function OperatorContainer(props) {
 		["Dashboard", "/operator"],
 		["Schedule Delivery", "/operator/addDelivery"],
 		["Add truck", "/operator/addTruck"],
-		["Full Schedule", "/operator"] // leads back to dashboard for now
 	];
 
 	return (
