@@ -54,6 +54,9 @@ localOperatorStrategy;
 //Set port
 const port = process.env.PORT || 5000;
 
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, '../', 'client/', 'build')));
+
 // Declare routes
 app.use('/api/trucks', truckRouter);
 app.use('/api/warehouses', warehouseRouter);
@@ -61,6 +64,11 @@ app.use('/api/cfsAdmins', cfsAdminRouter);
 app.use('/api/operators', operatorRouter);
 app.use('/api/requests', requestRouter);
 app.use('/api/schedules', scheduleRouter);
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../', 'client/', 'build/', 'index.html'));
+});
 
 // // Connect mongoose to server
 if (process.env.IS_DEPLOYMENT == 'true') {
